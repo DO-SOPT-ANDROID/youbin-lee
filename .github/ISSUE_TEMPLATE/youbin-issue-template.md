@@ -1,5 +1,5 @@
 ---
-name: You-bin issue template
+name: youbin issue template
 about: Issues for assignment
 title: ''
 labels: ''
