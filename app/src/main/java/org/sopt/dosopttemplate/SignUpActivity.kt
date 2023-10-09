@@ -28,7 +28,12 @@ class SignUpActivity : AppCompatActivity() {
             if(check){
                 Toast.makeText(this, "회원가입 성공!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                intent.putExtra("id", id)
+                    .putExtra("password", password)
+                    .putExtra("nickname", nickname)
+                    .putExtra("mbti", mbti)
+                setResult(RESULT_OK, intent)
+                finish()
             }else{
                 Toast.makeText(this, "정보를 다시 입력해주세요", Toast.LENGTH_SHORT).show()
             }
