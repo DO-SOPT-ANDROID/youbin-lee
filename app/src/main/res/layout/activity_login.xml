@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@id/login_title_tv"/>
 
     <EditText
-        android:id="@+id/login_id_ed"
+        android:id="@+id/login_id_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="비밀번호"
-        app:layout_constraintTop_toBottomOf="@id/login_id_ed"
+        app:layout_constraintTop_toBottomOf="@id/login_id_et"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
