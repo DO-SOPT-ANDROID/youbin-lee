@@ -1,4 +1,5 @@
 ### 리드미는 주로 블로그, 노션 제출 과제의 링크를 첨부하는데 써주시면 됩니다. 그 외엔 자유롭게 이용해주세요 !
+💚[DO-SOPT-Android 총정리 노션](https://cut-quiver-d76.notion.site/DO-SOPT-33th-d171ab352aa8470e8b5fb2ac32705bc0?pvs=4)
 
 ## 과제 링크 제출란
 
