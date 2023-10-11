@@ -13,6 +13,7 @@
           android:layout_width="60dp"
           android:layout_height="60dp"
           android:src="@drawable/profile"
+          app:layout_constraintDimensionRatio="1"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           android:layout_marginStart="30dp"
@@ -52,7 +53,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
         android:text="ID"
-        android:textSize="25sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_profile_img" />
@@ -75,7 +76,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:text="MBTI"
-        android:textSize="25sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_id_tv" />
