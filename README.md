@@ -2,7 +2,7 @@
 
 ## 과제 링크 제출란
 
-- [1주차 도전 과제 노션 링크](https://cut-quiver-d76.notion.site/0d1e0fd16ef1486bb90b010fd20b16e1?pvs=4)
+- [1주차 심화 과제 노션 링크](https://cut-quiver-d76.notion.site/0d1e0fd16ef1486bb90b010fd20b16e1?pvs=4)
 
 ## 템플릿 설명
 레포지터리에는 하나의 브랜치가 있습니다.
