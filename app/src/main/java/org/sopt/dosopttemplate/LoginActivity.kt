@@ -34,9 +34,9 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        binding.loginLoginBtn.setOnClickListener{
-            val enteredId = binding.loginIdEt.text.toString()
-            val enteredPwd = binding.loginPwEt.text.toString()
+        binding.btnLoginLogin.setOnClickListener{
+            val enteredId = binding.etLoginId.text.toString()
+            val enteredPwd = binding.etLoginPw.text.toString()
 
             if(enteredId.equals(intent.getStringExtra("id")) && enteredPwd.equals(intent.getStringExtra("password"))){
                 Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        binding.loginSignupBtn.setOnClickListener{
+        binding.btnLoginSignup.setOnClickListener{
             val intentSignUpAcitivty = Intent(this, SignUpActivity::class.java)
             resultLauncher.launch(intentSignUpAcitivty)
         }

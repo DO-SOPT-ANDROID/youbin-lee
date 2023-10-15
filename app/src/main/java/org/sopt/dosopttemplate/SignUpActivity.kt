@@ -13,11 +13,11 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.signUpSignupBtn.setOnClickListener{
-            val id = binding.signUpIdEt.text.toString()
-            val password = binding.signUpPwEt.text.toString()
-            val nickname = binding.signUpNicknameEt.text.toString()
-            val mbti = binding.signUpMbtiEt.text.toString()
+        binding.btnSignUpSignup.setOnClickListener{
+            val id = binding.etSignUpId.text.toString()
+            val password = binding.etSignUpPw.text.toString()
+            val nickname = binding.etSignUpNickname.text.toString()
+            val mbti = binding.etSignUpMbti.text.toString()
             var check : Boolean = true
 
             if(id.isEmpty() || id.length < 6 || id.length > 10) check = false

@@ -9,7 +9,7 @@
 
 
       <ImageView
-          android:id="@+id/main_profile_img"
+          android:id="@+id/img_main_profile"
           android:layout_width="60dp"
           android:layout_height="60dp"
           android:src="@drawable/profile"
@@ -21,16 +21,16 @@
 
 
     <TextView
-        android:id="@+id/main_nickname_tv"
+        android:id="@+id/tv_main_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="닉네임"
         android:textSize="19sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/main_profile_img"
-        app:layout_constraintTop_toTopOf="@id/main_profile_img"
-        app:layout_constraintBottom_toBottomOf="@id/main_profile_img" />
+        app:layout_constraintStart_toEndOf="@id/img_main_profile"
+        app:layout_constraintTop_toTopOf="@id/img_main_profile"
+        app:layout_constraintBottom_toBottomOf="@id/img_main_profile" />
 
     <TextView
         android:id="@+id/tv_main_introduce"
@@ -41,13 +41,13 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="엥뿌피입니당"
-        app:layout_constraintBottom_toBottomOf="@id/main_profile_img"
+        app:layout_constraintBottom_toBottomOf="@id/img_main_profile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/main_nickname_tv"
-        app:layout_constraintTop_toTopOf="@id/main_profile_img" />
+        app:layout_constraintStart_toEndOf="@id/tv_main_nickname"
+        app:layout_constraintTop_toTopOf="@id/img_main_profile" />
 
     <TextView
-        android:id="@+id/main_id_title_tv"
+        android:id="@+id/tv_main_id_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -56,10 +56,10 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_profile_img" />
+        app:layout_constraintTop_toBottomOf="@id/img_main_profile" />
 
     <TextView
-        android:id="@+id/main_id_tv"
+        android:id="@+id/tv_main_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -67,10 +67,10 @@
         android:text="아이디"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_id_title_tv" />
+        app:layout_constraintTop_toBottomOf="@id/tv_main_id_title" />
 
     <TextView
-        android:id="@+id/main_mbti_title_tv"
+        android:id="@+id/tv_main_mbti_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -79,10 +79,10 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_id_tv" />
+        app:layout_constraintTop_toBottomOf="@id/tv_main_id" />
 
     <TextView
-        android:id="@+id/main_mbti_tv"
+        android:id="@+id/tv_main_mbti"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -90,7 +90,7 @@
         tools:text="엠비티아이"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_mbti_title_tv" />
+        app:layout_constraintTop_toBottomOf="@id/tv_main_mbti_title" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

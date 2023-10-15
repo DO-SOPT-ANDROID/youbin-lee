@@ -12,9 +12,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if(intent.hasExtra("id")&&intent.hasExtra("nickname")&&intent.hasExtra("mbti")){
-            binding.mainIdTv.text = intent.getStringExtra("id")
-            binding.mainNicknameTv.text = intent.getStringExtra("nickname")
-            binding.mainMbtiTv.text = intent.getStringExtra("mbti")
+            binding.tvMainId.text = intent.getStringExtra("id")
+            binding.tvMainNickname.text = intent.getStringExtra("nickname")
+            binding.tvMainMbti.text = intent.getStringExtra("mbti")
         }
     }
 }
