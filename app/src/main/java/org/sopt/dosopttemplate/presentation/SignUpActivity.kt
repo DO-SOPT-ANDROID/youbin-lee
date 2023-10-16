@@ -1,10 +1,11 @@
-package org.sopt.dosopttemplate
+package org.sopt.dosopttemplate.presentation
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
+import org.sopt.dosopttemplate.util.shortToast
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignUpBinding
@@ -26,7 +27,7 @@ class SignUpActivity : AppCompatActivity() {
             if(mbti.isEmpty()) check = false
 
             if(check){
-                Toast.makeText(this, "회원가입 성공!", Toast.LENGTH_SHORT).show()
+                shortToast("회원가입 성공!")
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.putExtra("id", id)
                     .putExtra("password", password)
@@ -35,7 +36,7 @@ class SignUpActivity : AppCompatActivity() {
                 setResult(RESULT_OK, intent)
                 finish()
             }else{
-                Toast.makeText(this, "정보를 다시 입력해주세요", Toast.LENGTH_SHORT).show()
+                shortToast("정보를 다시 입력해주세요")
             }
         }
 

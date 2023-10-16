@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate
+package org.sopt.dosopttemplate.presentation
 
 import android.app.Activity
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
+import org.sopt.dosopttemplate.util.shortToast
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
@@ -39,10 +40,10 @@ class LoginActivity : AppCompatActivity() {
             val enteredPwd = binding.etLoginPw.text.toString()
 
             if(enteredId.equals(intent.getStringExtra("id")) && enteredPwd.equals(intent.getStringExtra("password"))){
-                Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                shortToast("로그인 성공!")
                 startActivity(intent)
             }else{
-                Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+                shortToast("로그인 실패")
             }
         }
 
