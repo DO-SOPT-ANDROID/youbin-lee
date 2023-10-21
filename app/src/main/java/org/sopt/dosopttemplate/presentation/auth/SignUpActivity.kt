@@ -1,9 +1,8 @@
-package org.sopt.dosopttemplate.presentation
+package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
 import org.sopt.dosopttemplate.util.shortToast
 

@@ -1,13 +1,13 @@
-package org.sopt.dosopttemplate.presentation
+package org.sopt.dosopttemplate.presentation.auth
 
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
+import org.sopt.dosopttemplate.presentation.MainActivity
 import org.sopt.dosopttemplate.util.shortToast
 
 class LoginActivity : AppCompatActivity() {
