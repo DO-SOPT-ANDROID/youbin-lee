@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import org.sopt.dosopttemplate.R
 
-
 class DoAndroidFragment : Fragment() {
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -17,6 +15,4 @@ class DoAndroidFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_do_android, container, false)
     }
-
-
 }
