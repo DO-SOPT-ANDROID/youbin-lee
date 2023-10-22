@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.dosopttemplate.R
+import org.sopt.dosopttemplate.data.FriendMusicViewHolder
 import org.sopt.dosopttemplate.data.FriendProfileViewHolder
 import org.sopt.dosopttemplate.data.FriendSealed
 import org.sopt.dosopttemplate.data.MyProfileViewHolder
 import org.sopt.dosopttemplate.databinding.ItemFriendBinding
+import org.sopt.dosopttemplate.databinding.ItemFriendMusicBinding
 import org.sopt.dosopttemplate.databinding.ItemMyProfileBinding
 
 class FriendAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -21,10 +23,12 @@ class FriendAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewH
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(viewType, parent, false)
 
-        // 타입별 뷰 홀더 레이아웃 지정
         return when (viewType) {
             R.layout.item_friend -> FriendProfileViewHolder(
                 ItemFriendBinding.bind(view),
+            )
+            R.layout.item_friend_music -> FriendMusicViewHolder(
+                ItemFriendMusicBinding.bind(view),
             )
 
             else -> MyProfileViewHolder(
@@ -38,6 +42,7 @@ class FriendAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewH
         when (holder) {
             is FriendProfileViewHolder -> holder.onBind(item as FriendSealed.FriendProfile)
             is MyProfileViewHolder -> holder.onBind(item as FriendSealed.MyProfile)
+            is FriendMusicViewHolder -> holder.onBind(item as FriendSealed.FriendMusic)
         }
     }
 
@@ -52,6 +57,7 @@ class FriendAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewH
     override fun getItemViewType(position: Int) = when (friendList[position]) {
         is FriendSealed.MyProfile -> R.layout.item_my_profile
         is FriendSealed.FriendProfile -> R.layout.item_friend
+        is FriendSealed.FriendMusic -> R.layout.item_friend_music
     }
 
 }

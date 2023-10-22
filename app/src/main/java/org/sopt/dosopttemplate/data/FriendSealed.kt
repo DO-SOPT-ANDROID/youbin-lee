@@ -13,17 +13,12 @@ sealed class FriendSealed {
         val profileImage: Int,
     ) : FriendSealed()
 
-//    data class Music(
-//        val name: String,
-//        val self_description: String?,
-//        val profileImage: Int,
-//        val music: String
-//    ) : FriendSealed()
-//
-//    data class Birthday(
-//        val name: String,
-//        val self_description: String?,
-//        val profileImage: Int,
-//    ) : FriendSealed()
+    data class FriendMusic(
+        val name: String,
+        val self_description: String?,
+        val profileImage: Int,
+    ) : FriendSealed()
+
+
 
 }

@@ -11,14 +11,19 @@ class ViewModel : ViewModel() {
             name = "이유빈",
         ),
         FriendSealed.FriendProfile(
-            profileImage = R.drawable.iv_friend_profile_son,
+            profileImage = R.drawable.iv_friend_profile1,
             name ="SOPT OB 손흥민",
             self_description = "이것이 축구다"
         ),
         FriendSealed.FriendProfile(
-            profileImage = R.drawable.iv_profile,
-            name ="이강인",
-            self_description = "파이팅"
+            profileImage = R.drawable.iv_friend_profile2,
+            name ="SOPT OB 이강인",
+            self_description = "배고파"
+        ),
+        FriendSealed.FriendMusic(
+            profileImage = R.drawable.iv_friend_profile3,
+            name ="SOPT OB 이강인",
+            self_description = "배고파"
         )
     )
 }
