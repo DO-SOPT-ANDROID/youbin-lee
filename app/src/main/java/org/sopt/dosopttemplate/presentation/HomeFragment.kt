@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.adapter.FriendAdapter
-import org.sopt.dosopttemplate.data.HomeViewModel
+import org.sopt.dosopttemplate.data.ViewModel
 import org.sopt.dosopttemplate.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -21,7 +20,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
-    private val viewModel by viewModels<HomeViewModel>()
+    private val viewModel by viewModels<ViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val friendAdapter = FriendAdapter(requireContext())
