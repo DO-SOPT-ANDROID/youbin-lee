@@ -15,8 +15,6 @@ import org.sopt.dosopttemplate.databinding.ItemMyProfileBinding
 
 class FriendAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val inflater by lazy{ LayoutInflater.from(context)}
-
-    // 임시의 빈 리스트
     private var friendList : List<FriendSealed> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) :RecyclerView.ViewHolder {

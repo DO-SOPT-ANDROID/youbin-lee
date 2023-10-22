@@ -17,6 +17,7 @@ sealed class FriendSealed {
         val name: String,
         val self_description: String?,
         val profileImage: Int,
+        val music : String?,
     ) : FriendSealed()
 
 

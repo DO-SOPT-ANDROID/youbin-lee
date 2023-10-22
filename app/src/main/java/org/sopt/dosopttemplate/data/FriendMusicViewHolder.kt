@@ -8,5 +8,6 @@ class FriendMusicViewHolder (private val binding: ItemFriendMusicBinding) : Recy
         binding.ivProfile.setImageResource(friendData.profileImage)
         binding.tvName.text = friendData.name
         binding.tvSelfDecription.text = friendData.self_description
+        binding.tvMelonMusic.text = friendData.music
     }
 }

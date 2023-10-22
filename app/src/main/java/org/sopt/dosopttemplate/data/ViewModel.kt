@@ -22,8 +22,9 @@ class ViewModel : ViewModel() {
         ),
         FriendSealed.FriendMusic(
             profileImage = R.drawable.iv_friend_profile3,
-            name ="SOPT OB 이강인",
-            self_description = "배고파"
+            name ="SOPT YB 정우영",
+            self_description = "배고파",
+            music = "Haru Haru - 빅뱅",
         )
     )
 }
