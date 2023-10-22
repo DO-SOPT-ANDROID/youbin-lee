@@ -9,17 +9,17 @@ class HomeViewModel : ViewModel() {
         Friend(
             profileImage = R.drawable.iv_profile,
             name = "이유빈임당~",
-            self_description = "꼼짝마 !!!!"
+            self_description = "안드 뿌시기"
         ),
         Friend(
             profileImage = R.drawable.iv_profile,
-            name ="손흥민민",
+            name ="손흥민",
             self_description = "이것이 축구다"
         ),
         Friend(
             profileImage = R.drawable.iv_profile,
-            name ="파트장장",
-            self_description = "표정 푸렁ㄱ"
+            name ="이강인",
+            self_description = "파이팅"
         )
     )
 }
