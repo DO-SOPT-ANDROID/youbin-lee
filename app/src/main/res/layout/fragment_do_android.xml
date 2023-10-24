@@ -7,11 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".presentation.DoAndroidFragment">
 
-    <ImageView
-        android:id="@+id/img_do_android"
+    <TextView
+        android:id="@+id/tv_do_android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_do_android_green_250"
+        android:text="Do Android!"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

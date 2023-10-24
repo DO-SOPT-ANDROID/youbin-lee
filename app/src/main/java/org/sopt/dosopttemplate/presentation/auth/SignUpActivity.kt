@@ -28,10 +28,12 @@ class SignUpActivity : AppCompatActivity() {
             if(check){
                 shortToast("회원가입 성공!")
                 val intent = Intent(this, LoginActivity::class.java)
-                intent.putExtra("id", id)
-                    .putExtra("password", password)
-                    .putExtra("nickname", nickname)
-                    .putExtra("mbti", mbti)
+                intent.apply{
+                    this.putExtra("id", id)
+                    this.putExtra("password", password)
+                    this.putExtra("nickname", nickname)
+                    this.putExtra("mbti", mbti)
+                }
                 setResult(RESULT_OK, intent)
                 finish()
             }else{

@@ -6,13 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.sopt.dosopttemplate.R
+import org.sopt.dosopttemplate.databinding.FragmentMyPageBinding
+
 class MyPageFragment : Fragment() {
+        private var _binding: FragmentMyPageBinding? = null
+        private val binding get() = _binding!!
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+            _binding = FragmentMyPageBinding.inflate(inflater, container, false)
+            return binding.root
+        }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+//            binding.tvMyPageNickname.text = arguments?.getString("nickname")
+//            binding.tvMyPageId.text = arguments?.getString("id")
+//            binding.tvMyPageMbti.text = arguments?.getString("mbti")
+        }
 
-        return inflater.inflate(R.layout.fragment_my_page, container, false)
-    }
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
 }

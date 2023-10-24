@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
+import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.presentation.HomeActivity
+import org.sopt.dosopttemplate.presentation.MyPageFragment
 import org.sopt.dosopttemplate.util.shortToast
 
 class LoginActivity : AppCompatActivity() {
@@ -32,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
                     .putExtra("password", password)
                     .putExtra("nickname", nickname)
                     .putExtra("mbti", mbti)
+
             }
         }
 
@@ -51,7 +55,6 @@ class LoginActivity : AppCompatActivity() {
             val intentSignUpAcitivty = Intent(this, SignUpActivity::class.java)
             resultLauncher.launch(intentSignUpAcitivty)
         }
-
 
     }
 }

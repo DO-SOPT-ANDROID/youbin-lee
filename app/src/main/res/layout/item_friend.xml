@@ -15,6 +15,8 @@
         android:scaleType="centerCrop"
         tools:src="@drawable/iv_friend_profile1"
         app:layout_constraintDimensionRatio="1"
+        android:clipToOutline="true"
+        android:background="@drawable/rounded_corner_border"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

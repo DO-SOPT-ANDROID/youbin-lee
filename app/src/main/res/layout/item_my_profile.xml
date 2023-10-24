@@ -13,6 +13,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:scaleType="centerCrop"
+        android:clipToOutline="true"
+        android:background="@drawable/rounded_corner_border"
         tools:src="@drawable/iv_my_profile"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,17 +32,35 @@
         app:layout_constraintStart_toEndOf="@id/iv_profile"
         app:layout_constraintTop_toTopOf="@id/iv_profile"/>
 
-    <TextView
-        android:id="@+id/tv_melon_music"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="상태 메세지 + "
-        android:padding="5dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/ic_round_background_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/tv_name"
-        app:layout_constraintTop_toTopOf="@id/tv_name"/>
+        app:layout_constraintTop_toTopOf="@id/tv_name"
+        android:orientation="horizontal"
+        android:background="@drawable/ic_round_background_gray"
+        android:layout_marginEnd="20dp">
+
+        <TextView
+            android:id="@+id/tv_melon_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="상태 메세지"
+            android:padding="5dp"
+            android:layout_marginEnd="15dp"
+            android:paddingStart="9dp"/>
+
+        <ImageView
+            android:id="@+id/img_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_gray_24"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="-19dp"/>
+
+    </LinearLayout>
 
 
 

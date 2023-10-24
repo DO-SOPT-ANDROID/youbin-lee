@@ -14,6 +14,8 @@
         android:layout_marginTop="40dp"
         android:scaleType="centerCrop"
         tools:src="@drawable/iv_friend_profile1"
+        android:clipToOutline="true"
+        android:background="@drawable/rounded_corner_border"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,17 +41,36 @@
         app:layout_constraintStart_toStartOf="@id/tv_name"
         app:layout_constraintTop_toBottomOf="@id/tv_name"/>
 
-    <TextView
-        android:id="@+id/tv_melon_music"
+    <LinearLayout
+        android:id="@+id/linear_melon_music"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="멜론 뮤직"
-        android:padding="5dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/ic_round_background_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/tv_self_description"
-        app:layout_constraintTop_toTopOf="@id/tv_name"/>
+        app:layout_constraintTop_toTopOf="@id/tv_name"
+        android:layout_marginEnd="15dp"
+        android:orientation="horizontal"
+        android:background="@drawable/ic_round_background_green">
+
+        <TextView
+            android:id="@+id/tv_music_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="멜론 뮤직"
+            android:padding="5dp"
+            android:paddingStart="9dp"/>
+
+        <ImageView
+            android:id="@+id/img_play_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_play_arrow_green_24"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="-9dp"/>
+
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
