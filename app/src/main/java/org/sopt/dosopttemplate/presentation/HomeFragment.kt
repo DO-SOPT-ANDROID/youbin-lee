@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import org.sopt.dosopttemplate.adapter.FriendAdapter
+import org.sopt.dosopttemplate.data.adapter.FriendAdapter
 import org.sopt.dosopttemplate.data.ViewModel
 import org.sopt.dosopttemplate.databinding.FragmentHomeBinding
 

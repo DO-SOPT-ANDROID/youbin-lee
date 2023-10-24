@@ -23,7 +23,7 @@ class ViewModel : ViewModel() {
         ),
         FriendSealed.FriendMusic(
             profileImage = R.drawable.iv_friend_profile3,
-            name ="SOPT YB 정우영",
+            name ="SOPT OB 정우영",
             self_description = null,
             music = "Haru Haru - 빅뱅"
         ),
@@ -46,8 +46,14 @@ class ViewModel : ViewModel() {
         ),
         FriendSealed.FriendProfile(
             profileImage = R.drawable.iv_friend_profile7,
-            name ="SOPT YB 기성용",
+            name ="SOPT YB 백승호",
             self_description = null
+        ),
+        FriendSealed.FriendMusic(
+            profileImage = R.drawable.iv_friend_profile8,
+            name ="SOPT YB 히샬리송",
+            self_description = "통그라미!!",
+            music = "Bubble - STAYC"
         )
     )
 }
