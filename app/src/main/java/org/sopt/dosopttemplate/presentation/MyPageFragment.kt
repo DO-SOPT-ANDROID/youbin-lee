@@ -1,5 +1,6 @@
 package org.sopt.dosopttemplate.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.setFragmentResultListener
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.FragmentMyPageBinding
+import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 
 class MyPageFragment : Fragment() {
         private var _binding: FragmentMyPageBinding? = null
@@ -28,6 +30,12 @@ class MyPageFragment : Fragment() {
             binding.tvMyPageId.text = bundle?.getString("id")
             binding.tvMyPageMbti.text = bundle?.getString("mbti")
             binding.tvMyPageNickname.text = bundle?.getString("nickname")
+
+            binding.btnMyPageLogout.setOnClickListener{
+                val intent = Intent(getActivity(), LoginActivity::class.java)
+                startActivity(intent)
+            }
+
         }
 
         override fun onDestroyView() {
