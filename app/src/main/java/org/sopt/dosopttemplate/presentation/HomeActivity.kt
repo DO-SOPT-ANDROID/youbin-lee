@@ -27,7 +27,16 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu_mypage -> {
-                    replaceFragment(MyPageFragment())
+                    val mypagefragment : MyPageFragment = MyPageFragment()
+                    val bundle : Bundle = Bundle()
+                    bundle.putString("id", intent.getStringExtra("id"))
+                    bundle.putString("password", intent.getStringExtra("password"))
+                    bundle.putString("nickname", intent.getStringExtra("nickname"))
+                    bundle.putString("mbti", intent.getStringExtra("mbti"))
+
+                    mypagefragment.arguments = bundle
+
+                    replaceFragment(mypagefragment)
                     true
                 }
                 else -> false

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.FragmentMyPageBinding
 
@@ -22,9 +23,11 @@ class MyPageFragment : Fragment() {
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-//            binding.tvMyPageNickname.text = arguments?.getString("nickname")
-//            binding.tvMyPageId.text = arguments?.getString("id")
-//            binding.tvMyPageMbti.text = arguments?.getString("mbti")
+
+            val bundle = arguments
+            binding.tvMyPageId.text = bundle?.getString("id")
+            binding.tvMyPageMbti.text = bundle?.getString("mbti")
+            binding.tvMyPageNickname.text = bundle?.getString("nickname")
         }
 
         override fun onDestroyView() {
