@@ -1,13 +1,17 @@
-package org.sopt.dosopttemplate
+package org.sopt.dosopttemplate.presentation.auth
 
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
+import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
+import org.sopt.dosopttemplate.presentation.HomeActivity
+import org.sopt.dosopttemplate.presentation.MyPageFragment
+import org.sopt.dosopttemplate.util.shortToast
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
@@ -18,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var intent = Intent(this, MainActivity::class.java)
+        var intent = Intent(this, HomeActivity::class.java)
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -31,26 +35,26 @@ class LoginActivity : AppCompatActivity() {
                     .putExtra("password", password)
                     .putExtra("nickname", nickname)
                     .putExtra("mbti", mbti)
+
             }
         }
 
-        binding.loginLoginBtn.setOnClickListener{
-            val enteredId = binding.loginIdEt.text.toString()
-            val enteredPwd = binding.loginPwEt.text.toString()
+        binding.btnLoginLogin.setOnClickListener{
+            val enteredId = binding.etLoginId.text.toString()
+            val enteredPwd = binding.etLoginPw.text.toString()
 
             if(enteredId.equals(intent.getStringExtra("id")) && enteredPwd.equals(intent.getStringExtra("password"))){
-                Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                shortToast("로그인 성공!")
                 startActivity(intent)
             }else{
-                Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+                shortToast("로그인 실패")
             }
         }
 
-        binding.loginSignupBtn.setOnClickListener{
+        binding.btnLoginSignup.setOnClickListener{
             val intentSignUpAcitivty = Intent(this, SignUpActivity::class.java)
             resultLauncher.launch(intentSignUpAcitivty)
         }
-
 
     }
 }

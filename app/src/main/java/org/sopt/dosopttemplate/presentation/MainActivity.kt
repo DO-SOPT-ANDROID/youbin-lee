@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate
+package org.sopt.dosopttemplate.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,10 +11,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(intent.hasExtra("id")&&intent.hasExtra("nickname")&&intent.hasExtra("mbti")){
-            binding.mainIdTv.text = intent.getStringExtra("id")
-            binding.mainNicknameTv.text = intent.getStringExtra("nickname")
-            binding.mainMbtiTv.text = intent.getStringExtra("mbti")
-        }
+//        if(intent.hasExtra("id")&&intent.hasExtra("nickname")&&intent.hasExtra("mbti")){
+//            binding.tvMainId.text = intent.getStringExtra("id")
+//            binding.tvMainNickname.text = intent.getStringExtra("nickname")
+//            binding.tvMainMbti.text = intent.getStringExtra("mbti")
+//        }
     }
 }

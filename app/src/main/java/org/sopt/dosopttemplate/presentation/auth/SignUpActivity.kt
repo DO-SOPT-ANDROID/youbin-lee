@@ -1,10 +1,10 @@
-package org.sopt.dosopttemplate
+package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
+import org.sopt.dosopttemplate.util.shortToast
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignUpBinding
@@ -13,11 +13,11 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.signUpSignupBtn.setOnClickListener{
-            val id = binding.signUpIdEt.text.toString()
-            val password = binding.signUpPwEt.text.toString()
-            val nickname = binding.signUpNicknameEt.text.toString()
-            val mbti = binding.signUpMbtiEt.text.toString()
+        binding.btnSignUpSignup.setOnClickListener{
+            val id = binding.etSignUpId.text.toString()
+            val password = binding.etSignUpPw.text.toString()
+            val nickname = binding.etSignUpNickname.text.toString()
+            val mbti = binding.etSignUpMbti.text.toString()
             var check : Boolean = true
 
             if(id.isEmpty() || id.length < 6 || id.length > 10) check = false
@@ -26,16 +26,18 @@ class SignUpActivity : AppCompatActivity() {
             if(mbti.isEmpty()) check = false
 
             if(check){
-                Toast.makeText(this, "회원가입 성공!", Toast.LENGTH_SHORT).show()
+                shortToast("회원가입 성공!")
                 val intent = Intent(this, LoginActivity::class.java)
-                intent.putExtra("id", id)
-                    .putExtra("password", password)
-                    .putExtra("nickname", nickname)
-                    .putExtra("mbti", mbti)
+                intent.apply{
+                    this.putExtra("id", id)
+                    this.putExtra("password", password)
+                    this.putExtra("nickname", nickname)
+                    this.putExtra("mbti", mbti)
+                }
                 setResult(RESULT_OK, intent)
                 finish()
             }else{
-                Toast.makeText(this, "정보를 다시 입력해주세요", Toast.LENGTH_SHORT).show()
+                shortToast("정보를 다시 입력해주세요")
             }
         }
 
