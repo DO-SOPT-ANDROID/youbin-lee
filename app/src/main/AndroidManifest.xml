@@ -18,7 +18,7 @@
         <activity
             android:name=".presentation.auth.SignUpActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".presentation.MainActivity"
             android:exported="false" />

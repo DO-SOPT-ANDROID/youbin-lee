@@ -3,7 +3,9 @@ package org.sopt.dosopttemplate.presentation.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
+import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.shortToast
 
 class SignUpActivity : AppCompatActivity() {
@@ -42,5 +44,11 @@ class SignUpActivity : AppCompatActivity() {
         }
 
     }
+    //배경 터치하면 키보드 내려가게 하기
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        hideKeyboard()
+        return super.dispatchTouchEvent(ev)
+    }
+
 
 }
