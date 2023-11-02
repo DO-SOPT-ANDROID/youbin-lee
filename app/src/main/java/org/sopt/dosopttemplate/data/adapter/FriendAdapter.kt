@@ -13,7 +13,6 @@ import org.sopt.dosopttemplate.databinding.ItemMyProfileBinding
 class FriendAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val inflater by lazy{ LayoutInflater.from(context)}
     private var friendList : List<FriendSealed> = emptyList()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) :RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(viewType, parent, false)

@@ -48,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
 
             if(enteredId.equals(user.id) && enteredPwd.equals(user.password)){
                 shortToast("로그인 성공!")
+                intent.putExtra("User", user)
                 startActivity(intent)
             }else{
                 shortToast("로그인 실패")
