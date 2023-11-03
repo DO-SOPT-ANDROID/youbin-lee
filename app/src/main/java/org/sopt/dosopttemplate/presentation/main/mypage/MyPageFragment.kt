@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.presentation.main
+package org.sopt.dosopttemplate.presentation.main.mypage
 
 import android.content.Intent
 import android.os.Bundle

@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityHomeBinding
+import org.sopt.dosopttemplate.presentation.main.doandroid.DoAndroidFragment
+import org.sopt.dosopttemplate.presentation.main.home.HomeFragment
+import org.sopt.dosopttemplate.presentation.main.mypage.MyPageFragment
 import org.sopt.dosopttemplate.util.getParcelable
 
 class HomeActivity : AppCompatActivity() {
