@@ -20,6 +20,4 @@ sealed class FriendSealed {
         val music : String?,
     ) : FriendSealed()
 
-
-
 }
