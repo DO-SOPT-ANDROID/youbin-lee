@@ -46,12 +46,16 @@ class LoginActivity : AppCompatActivity() {
 
             var intent = Intent(this, HomeActivity::class.java)
 
-            if(enteredId.equals(user.id) && enteredPwd.equals(user.password)){
-                shortToast("로그인 성공!")
-                intent.putExtra("User", user)
-                startActivity(intent)
-            }else{
-                shortToast("로그인 실패")
+            try {
+                if(enteredId.equals(user.id) && enteredPwd.equals(user.password)){
+                    shortToast("로그인 성공!")
+                    intent.putExtra("User", user)
+                    startActivity(intent)
+                }else{
+                    shortToast("아이디와 비밀번호가 일치하지 않습니다.")
+                }
+            } catch (e: UninitializedPropertyAccessException) {
+                shortToast("회원가입을 먼저 해주세요.")
             }
         }
     }

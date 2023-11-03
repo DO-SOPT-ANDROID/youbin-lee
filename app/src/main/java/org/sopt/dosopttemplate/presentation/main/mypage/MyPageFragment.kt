@@ -1,5 +1,6 @@
 package org.sopt.dosopttemplate.presentation.main.mypage
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -42,7 +43,9 @@ class MyPageFragment : Fragment() {
         }
         private fun logoutBtnListener(){
             binding.btnMyPageLogout.setOnClickListener{
-                val intent = Intent(getActivity(), LoginActivity::class.java)
+                val intent = Intent(context, LoginActivity::class.java).apply {
+                   addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
                 startActivity(intent)
              }
         }
