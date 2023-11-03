@@ -26,7 +26,7 @@ class MyPageFragment : Fragment() {
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
 
-//            getUserData()
+            getUserData()
 
             binding.run{
                 tvMyPageId.text = user.id
@@ -37,9 +37,9 @@ class MyPageFragment : Fragment() {
             logoutBtnListener()
 
         }
-//    private fun getUserData() {
-//        user = arguments?.getParcelable("User") ?: User()
-//    }
+     private fun getUserData() {
+            user = arguments?.getParcelable("User")!!
+        }
         private fun logoutBtnListener(){
             binding.btnMyPageLogout.setOnClickListener{
                 val intent = Intent(getActivity(), LoginActivity::class.java)

@@ -31,7 +31,12 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu_mypage -> {
-                    replaceFragment(MyPageFragment())
+                    val myPageFragment = MyPageFragment().apply {
+                        arguments = Bundle().apply {
+                            putParcelable("User", user)
+                        }
+                    }
+                    replaceFragment(myPageFragment)
                     true
                 }
                 else -> false
