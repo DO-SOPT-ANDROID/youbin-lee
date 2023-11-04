@@ -2,7 +2,9 @@ package org.sopt.dosopttemplate.presentation.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import doubleBackPressed
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityHomeBinding
@@ -19,6 +21,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        doubleBackPressed()
         clickBottomNavigation()
         getUserData()
     }
