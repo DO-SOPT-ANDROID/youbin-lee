@@ -1,10 +1,13 @@
-package org.sopt.dosopttemplate.presentation
+package org.sopt.dosopttemplate.presentation.main.doandroid
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
+import doubleBackPressed
 import org.sopt.dosopttemplate.R
 
 class DoAndroidFragment : Fragment() {
