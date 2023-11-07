@@ -2,59 +2,76 @@ package org.sopt.dosopttemplate.presentation.auth
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.ReportFragment.Companion.reportFragment
-import org.sopt.dosopttemplate.R
+import androidx.appcompat.app.AppCompatActivity
+import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
-import org.sopt.dosopttemplate.presentation.HomeActivity
-import org.sopt.dosopttemplate.presentation.MyPageFragment
+import org.sopt.dosopttemplate.presentation.main.HomeActivity
+import org.sopt.dosopttemplate.util.getParcelable
+import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.shortToast
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var user : User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var intent = Intent(this, HomeActivity::class.java)
+        initSignUpActivityLauncher()
+        initLoginBtnListener()
+        initSignUpBtnListener()
+
+    }
+    private fun initSignUpActivityLauncher(){
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val id = result.data?.getStringExtra("id") ?: ""
-                val password = result.data?.getStringExtra("password") ?: ""
-                val nickname = result.data?.getStringExtra("nickname") ?: ""
-                val mbti = result.data?.getStringExtra("mbti") ?: ""
-
-                intent.putExtra("id" ,id)
-                    .putExtra("password", password)
-                    .putExtra("nickname", nickname)
-                    .putExtra("mbti", mbti)
-
+                user = result.data?.getParcelable("User", User::class.java)!!
             }
         }
+    }
 
+    private fun initLoginBtnListener(){
         binding.btnLoginLogin.setOnClickListener{
             val enteredId = binding.etLoginId.text.toString()
             val enteredPwd = binding.etLoginPw.text.toString()
 
-            if(enteredId.equals(intent.getStringExtra("id")) && enteredPwd.equals(intent.getStringExtra("password"))){
-                shortToast("로그인 성공!")
-                startActivity(intent)
-            }else{
-                shortToast("로그인 실패")
+            var intent = Intent(this, HomeActivity::class.java)
+
+            try {
+                if(enteredId.equals(user.id) && enteredPwd.equals(user.password)){
+                    shortToast("로그인 성공!")
+                    intent.putExtra("User", user)
+                    startActivity(intent)
+                }else{
+                    shortToast("아이디와 비밀번호가 일치하지 않습니다.")
+                }
+            } catch (e: UninitializedPropertyAccessException) {
+                shortToast("회원가입을 먼저 해주세요.")
             }
         }
+    }
 
+    private fun initSignUpBtnListener(){
         binding.btnLoginSignup.setOnClickListener{
             val intentSignUpAcitivty = Intent(this, SignUpActivity::class.java)
             resultLauncher.launch(intentSignUpAcitivty)
         }
-
     }
+
+    //배경 터치하면 키보드 내려가게 하기
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        hideKeyboard()
+        return super.dispatchTouchEvent(ev)
+    }
+
+
 }

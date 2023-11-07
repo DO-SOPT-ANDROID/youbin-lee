@@ -3,16 +3,24 @@ package org.sopt.dosopttemplate.presentation.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
+import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
+import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.shortToast
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignUpBinding
+    private lateinit var user : User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        signUpBtnListener()
+
+    }
+    private fun signUpBtnListener(){
         binding.btnSignUpSignup.setOnClickListener{
             val id = binding.etSignUpId.text.toString()
             val password = binding.etSignUpPw.text.toString()
@@ -27,20 +35,22 @@ class SignUpActivity : AppCompatActivity() {
 
             if(check){
                 shortToast("회원가입 성공!")
-                val intent = Intent(this, LoginActivity::class.java)
-                intent.apply{
-                    this.putExtra("id", id)
-                    this.putExtra("password", password)
-                    this.putExtra("nickname", nickname)
-                    this.putExtra("mbti", mbti)
-                }
+
+                // User에 객체 전달
+                user = User(id, password, nickname, mbti)
+                intent.putExtra("User", user)
+
                 setResult(RESULT_OK, intent)
                 finish()
             }else{
                 shortToast("정보를 다시 입력해주세요")
             }
         }
-
+    }
+    //배경 터치하면 키보드 내려가게 하기
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        hideKeyboard()
+        return super.dispatchTouchEvent(ev)
     }
 
 }

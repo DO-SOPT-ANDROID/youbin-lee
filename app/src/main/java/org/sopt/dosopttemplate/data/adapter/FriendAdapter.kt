@@ -5,10 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.FriendMusicViewHolder
-import org.sopt.dosopttemplate.data.FriendProfileViewHolder
 import org.sopt.dosopttemplate.data.FriendSealed
-import org.sopt.dosopttemplate.data.MyProfileViewHolder
 import org.sopt.dosopttemplate.databinding.ItemFriendBinding
 import org.sopt.dosopttemplate.databinding.ItemFriendMusicBinding
 import org.sopt.dosopttemplate.databinding.ItemMyProfileBinding
@@ -16,7 +13,6 @@ import org.sopt.dosopttemplate.databinding.ItemMyProfileBinding
 class FriendAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val inflater by lazy{ LayoutInflater.from(context)}
     private var friendList : List<FriendSealed> = emptyList()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) :RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(viewType, parent, false)
