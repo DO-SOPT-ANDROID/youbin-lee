@@ -20,9 +20,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".presentation.main.MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.auth.LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">

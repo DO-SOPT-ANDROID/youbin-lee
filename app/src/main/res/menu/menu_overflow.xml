@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/chip_yb"
+        android:title="SOPT YB" />
+    <item android:id="@+id/chip_ob"
+        android:title="SOPT OB" />
+</menu>
