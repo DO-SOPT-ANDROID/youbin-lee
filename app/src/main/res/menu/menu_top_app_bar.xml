@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/btn_music"
+        android:icon="@drawable/ic_music_white_24"
+        app:showAsAction="ifRoom"
+        android:title="music" />
+
+    <item
+        android:id="@+id/btn_edit"
+        android:icon="@drawable/ic_filter_white_24"
+        android:title="edit"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/option_1"
+        android:title="Edit"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/option_2"
+        android:title="Manage Friends"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/option_3"
+        android:title="General Settings"
+        app:showAsAction="never" />
+</menu>
