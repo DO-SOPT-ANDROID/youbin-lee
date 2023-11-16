@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
 
     //배경 터치하면 키보드 내려가게 하기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        hideKeyboard()
+        currentFocus?.hideKeyboard()
         return super.dispatchTouchEvent(ev)
     }
 
