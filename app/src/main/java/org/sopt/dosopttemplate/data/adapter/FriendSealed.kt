@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.data
+package org.sopt.dosopttemplate.data.adapter
 
 sealed class FriendSealed {
 
