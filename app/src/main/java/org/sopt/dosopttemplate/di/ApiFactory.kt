@@ -14,7 +14,7 @@ import org.sopt.dosopttemplate.data.service.FollowerService
 import retrofit2.Retrofit
 
 object ApiFactory {
-    private fun getLogOkHttpClient(): Interceptor {
+    fun getLogOkHttpClient(): Interceptor {
         val loggingInterceptor = HttpLoggingInterceptor { message ->
             Log.d("Retrofit2", "CONNECTION INFO -> $message")
         }

@@ -1,8 +1,10 @@
 package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.widget.Toast
 import org.sopt.dosopttemplate.data.User
@@ -33,12 +35,9 @@ class SignUpActivity : AppCompatActivity() {
             val mbti = binding.etSignUpMbti.text.toString()
 
             if(isInputValid(id, password, nickname, mbti)){
-                // User에 객체 전달
                 user = User(id, password, nickname, mbti)
                 signUp(user, this)
-                intent.putExtra("User", user)
-                setResult(RESULT_OK, intent)
-                finish()
+
             }else{
                 shortToast("정보를 다시 입력해주세요")
             }
@@ -46,23 +45,25 @@ class SignUpActivity : AppCompatActivity() {
     }
     fun signUp(signUpUser: User, context: Context) {
         ServicePool.authService.signUp(
-            RequestSignUpDto(
-                signUpUser.id,
-                signUpUser.password,
-                signUpUser.nickName,
-            ),
+            RequestSignUpDto(signUpUser.id, signUpUser.password, signUpUser.nickName,),
         )
             .enqueue(object : retrofit2.Callback<Unit> {
                 override fun onResponse(
                     call: Call<Unit>,
                     response: Response<Unit>,
                 ) {
+                    Log.d("Response", response.toString())
                     if (response.isSuccessful) {
                         shortToast("회원가입 성공")
+                        intent.putExtra("User", user)
+                        setResult(RESULT_OK, intent)
+                        finish()
+                    }else{
+                        shortToast("회원가입 실패")
                     }
                 }
                 override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    Toast.makeText(context, "서버 에러 발생", Toast.LENGTH_SHORT,).show()
+                    shortToast("서버 에러")
                 }
             })
     }

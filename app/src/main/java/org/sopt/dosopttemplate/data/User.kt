@@ -1,6 +1,7 @@
 package org.sopt.dosopttemplate.data
 
 import android.os.Parcelable
+import android.util.Log
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
