@@ -1,13 +1,19 @@
 package org.sopt.dosopttemplate.presentation.auth
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
+import android.widget.Toast
 import org.sopt.dosopttemplate.data.User
+import org.sopt.dosopttemplate.data.model.request.RequestSignUpDto
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
+import org.sopt.dosopttemplate.di.ServicePool
 import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.shortToast
+import retrofit2.Call
+import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignUpBinding
@@ -38,6 +44,7 @@ class SignUpActivity : AppCompatActivity() {
 
                 // User에 객체 전달
                 user = User(id, password, nickname, mbti)
+                signUp(user, this)
                 intent.putExtra("User", user)
 
                 setResult(RESULT_OK, intent)
@@ -47,6 +54,31 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+    fun signUp(signUpUser: User, context: Context) {
+        ServicePool.authService.signUp(
+            RequestSignUpDto(
+                signUpUser.id,
+                signUpUser.password,
+                signUpUser.nickName,
+            ),
+        )
+            .enqueue(object : retrofit2.Callback<Unit> {
+                override fun onResponse(
+                    call: Call<Unit>,
+                    response: Response<Unit>,
+                ) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(context, "회원가입 성공", Toast.LENGTH_SHORT,).show()
+                    } else {
+                        Toast.makeText(context, "회원가입 실패", Toast.LENGTH_SHORT,).show()
+                    }
+                }
+                override fun onFailure(call: Call<Unit>, t: Throwable) {
+                    Toast.makeText(context, "서버 에러 발생", Toast.LENGTH_SHORT,).show()
+                }
+            })
+    }
+
     //배경 터치하면 키보드 내려가게 하기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         currentFocus?.hideKeyboard()
