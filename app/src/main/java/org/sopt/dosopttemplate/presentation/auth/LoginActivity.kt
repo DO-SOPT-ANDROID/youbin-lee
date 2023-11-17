@@ -4,15 +4,20 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.data.User
+import org.sopt.dosopttemplate.data.model.request.RequestLoginDto
+import org.sopt.dosopttemplate.data.model.response.ResponseLoginDto
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
+import org.sopt.dosopttemplate.di.ServicePool.authService
 import org.sopt.dosopttemplate.presentation.main.HomeActivity
 import org.sopt.dosopttemplate.util.getParcelable
 import org.sopt.dosopttemplate.util.hideKeyboard
-import org.sopt.dosopttemplate.util.shortToast
+import retrofit2.Call
+import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
@@ -41,24 +46,41 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initLoginBtnListener(){
         binding.btnLoginLogin.setOnClickListener{
-            val enteredId = binding.etLoginId.text.toString()
-            val enteredPwd = binding.etLoginPw.text.toString()
-
-            var intent = Intent(this, HomeActivity::class.java)
-
-            try {
-                if(enteredId.equals(user.id) && enteredPwd.equals(user.password)){
-                    shortToast("로그인 성공!")
-                    intent.putExtra("User", user)
-                    startActivity(intent)
-                }else{
-                    shortToast("아이디와 비밀번호가 일치하지 않습니다.")
-                }
-            } catch (e: UninitializedPropertyAccessException) {
-                shortToast("회원가입을 먼저 해주세요.")
-            }
+            login()
         }
     }
+
+    private fun login() {
+        val id = binding.etLoginId.text.toString()
+        val password = binding.etLoginPw.text.toString()
+
+        authService.login(RequestLoginDto(id, password))
+            .enqueue(object : retrofit2.Callback<ResponseLoginDto> {
+                override fun onResponse(
+                    call: Call<ResponseLoginDto>,
+                    response: Response<ResponseLoginDto>,
+                ) {
+                    if (response.isSuccessful) {
+                        val data: ResponseLoginDto = response.body()!!
+                        val userId = data.id
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "로그인이 성공하였고 유저의 ID는 $userId 입니둥",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+
+                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        intent.putExtra("User", user)
+                        startActivity(intent)
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseLoginDto>, t: Throwable) {
+                    Toast.makeText(this@LoginActivity, "서버 에러 발생", Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
 
     private fun initSignUpBtnListener(){
         binding.btnLoginSignup.setOnClickListener{
@@ -67,11 +89,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     //배경 터치하면 키보드 내려가게 하기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         currentFocus?.hideKeyboard()
         return super.dispatchTouchEvent(ev)
     }
-
 
 }
