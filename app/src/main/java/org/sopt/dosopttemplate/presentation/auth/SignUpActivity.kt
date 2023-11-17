@@ -31,21 +31,12 @@ class SignUpActivity : AppCompatActivity() {
             val password = binding.etSignUpPw.text.toString()
             val nickname = binding.etSignUpNickname.text.toString()
             val mbti = binding.etSignUpMbti.text.toString()
-            var check : Boolean = true
 
-            if(id.isEmpty() || id.length < 6 || id.length > 10) check = false
-            if(password.isEmpty() || password.length < 8 || password.length > 12) check = false
-            if(nickname.isEmpty()) check = false
-            if(mbti.isEmpty()) check = false
-
-            if(check){
-                shortToast("회원가입 성공!")
-
+            if(isInputValid(id, password, nickname, mbti)){
                 // User에 객체 전달
                 user = User(id, password, nickname, mbti)
                 signUp(user, this)
                 intent.putExtra("User", user)
-
                 setResult(RESULT_OK, intent)
                 finish()
             }else{
@@ -67,9 +58,7 @@ class SignUpActivity : AppCompatActivity() {
                     response: Response<Unit>,
                 ) {
                     if (response.isSuccessful) {
-                        Toast.makeText(context, "회원가입 성공", Toast.LENGTH_SHORT,).show()
-                    } else {
-                        Toast.makeText(context, "회원가입 실패", Toast.LENGTH_SHORT,).show()
+                        shortToast("회원가입 성공")
                     }
                 }
                 override fun onFailure(call: Call<Unit>, t: Throwable) {
@@ -77,6 +66,18 @@ class SignUpActivity : AppCompatActivity() {
                 }
             })
     }
+    private fun isInputValid(
+        id: String,
+        password: String,
+        nickname: String,
+        address: String
+    ): Boolean {
+        return id.isNotEmpty() && id.length in 6..10 &&
+                password.isNotEmpty() && password.length in 8..12 &&
+                nickname.isNotEmpty() &&
+                address.isNotEmpty()
+    }
+
 
     //배경 터치하면 키보드 내려가게 하기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

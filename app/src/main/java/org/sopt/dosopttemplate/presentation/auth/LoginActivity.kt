@@ -16,6 +16,7 @@ import org.sopt.dosopttemplate.di.ServicePool.authService
 import org.sopt.dosopttemplate.presentation.main.HomeActivity
 import org.sopt.dosopttemplate.util.getParcelable
 import org.sopt.dosopttemplate.util.hideKeyboard
+import org.sopt.dosopttemplate.util.shortToast
 import retrofit2.Call
 import retrofit2.Response
 
@@ -63,11 +64,7 @@ class LoginActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val data: ResponseLoginDto = response.body()!!
                         val userId = data.id
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "로그인이 성공하였고 유저의 ID는 $userId 입니둥",
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                        shortToast("\"로그인이 성공하였고 유저의 ID는 $userId 입니둥\"")
 
                         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         intent.putExtra("User", user)
@@ -76,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<ResponseLoginDto>, t: Throwable) {
-                    Toast.makeText(this@LoginActivity, "서버 에러 발생", Toast.LENGTH_SHORT).show()
+                    shortToast("서버 에러 발생")
                 }
             })
     }
