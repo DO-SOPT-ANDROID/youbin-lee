@@ -1,7 +1,6 @@
 package org.sopt.dosopttemplate.data.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import org.sopt.dosopttemplate.data.FriendSealed
 import org.sopt.dosopttemplate.databinding.ItemFriendMusicBinding
 
 class FriendMusicViewHolder (private val binding: ItemFriendMusicBinding) : RecyclerView.ViewHolder(binding.root) {

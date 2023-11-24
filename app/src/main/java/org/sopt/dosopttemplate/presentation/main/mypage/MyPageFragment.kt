@@ -13,6 +13,7 @@ import org.sopt.dosopttemplate.databinding.FragmentMyPageBinding
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 
 class MyPageFragment : Fragment() {
+
     private var _binding: FragmentMyPageBinding? = null
     private val binding get() = _binding!!
     private lateinit var user : User

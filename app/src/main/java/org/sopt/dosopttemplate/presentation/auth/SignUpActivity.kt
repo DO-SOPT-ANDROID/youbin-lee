@@ -1,13 +1,20 @@
 package org.sopt.dosopttemplate.presentation.auth
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
+import android.widget.Toast
 import org.sopt.dosopttemplate.data.User
+import org.sopt.dosopttemplate.data.model.request.RequestSignUpDto
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
+import org.sopt.dosopttemplate.di.ServicePool
 import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.shortToast
+import retrofit2.Call
+import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignUpBinding
@@ -26,30 +33,56 @@ class SignUpActivity : AppCompatActivity() {
             val password = binding.etSignUpPw.text.toString()
             val nickname = binding.etSignUpNickname.text.toString()
             val mbti = binding.etSignUpMbti.text.toString()
-            var check : Boolean = true
 
-            if(id.isEmpty() || id.length < 6 || id.length > 10) check = false
-            if(password.isEmpty() || password.length < 8 || password.length > 12) check = false
-            if(nickname.isEmpty()) check = false
-            if(mbti.isEmpty()) check = false
-
-            if(check){
-                shortToast("회원가입 성공!")
-
-                // User에 객체 전달
+            if(isInputValid(id, password, nickname, mbti)){
                 user = User(id, password, nickname, mbti)
-                intent.putExtra("User", user)
+                signUp(user, this)
 
-                setResult(RESULT_OK, intent)
-                finish()
             }else{
                 shortToast("정보를 다시 입력해주세요")
             }
         }
     }
+    fun signUp(signUpUser: User, context: Context) {
+        ServicePool.authService.signUp(
+            RequestSignUpDto(signUpUser.id, signUpUser.password, signUpUser.nickName,),
+        )
+            .enqueue(object : retrofit2.Callback<Unit> {
+                override fun onResponse(
+                    call: Call<Unit>,
+                    response: Response<Unit>,
+                ) {
+                    Log.d("Response", response.toString())
+                    if (response.isSuccessful) {
+                        shortToast("회원가입 성공")
+                        intent.putExtra("User", user)
+                        setResult(RESULT_OK, intent)
+                        finish()
+                    }else{
+                        shortToast("회원가입 실패")
+                    }
+                }
+                override fun onFailure(call: Call<Unit>, t: Throwable) {
+                    shortToast("서버 에러")
+                }
+            })
+    }
+    private fun isInputValid(
+        id: String,
+        password: String,
+        nickname: String,
+        address: String
+    ): Boolean {
+        return id.isNotEmpty() && id.length in 6..10 &&
+                password.isNotEmpty() && password.length in 8..12 &&
+                nickname.isNotEmpty() &&
+                address.isNotEmpty()
+    }
+
+
     //배경 터치하면 키보드 내려가게 하기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        hideKeyboard()
+        currentFocus?.hideKeyboard()
         return super.dispatchTouchEvent(ev)
     }
 
