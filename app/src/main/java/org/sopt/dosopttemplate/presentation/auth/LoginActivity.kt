@@ -4,22 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.data.User
-import org.sopt.dosopttemplate.data.model.request.RequestLoginDto
-import org.sopt.dosopttemplate.data.model.response.ResponseLoginDto
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
-import org.sopt.dosopttemplate.di.ServicePool.authService
-import org.sopt.dosopttemplate.presentation.main.HomeActivity
 import org.sopt.dosopttemplate.util.getParcelable
 import org.sopt.dosopttemplate.util.hideKeyboard
-import org.sopt.dosopttemplate.util.shortToast
-import retrofit2.Call
-import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
@@ -27,20 +19,21 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private lateinit var user : User
 
-    private val authViewModel: AuthViewModel by viewModels { AuthViewModelFactory() }
+    private val loginViewModel: LoginViewModel by viewModels { LoginViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.vm = authViewModel
+        binding.vm = loginViewModel
+
         initSignUpActivityLauncher()
         initLoginBtnListener()
         initSignUpBtnListener()
 
         // onCreate 안에 observe
-        authViewModel.loginSuccess.observe(this){
+        loginViewModel.loginSuccess.observe(this){
             if(it){
             }else{
 
@@ -52,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
     private fun  initLoginBtnListener() {
         binding.btnLoginLogin.setOnClickListener {
 
-            authViewModel.login(
+            loginViewModel.login(
             )
         }
     }

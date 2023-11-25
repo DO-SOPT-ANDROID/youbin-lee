@@ -2,9 +2,9 @@ package org.sopt.dosopttemplate.data.mock
 
 import androidx.lifecycle.ViewModel
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.adapter.FriendSealed
+import org.sopt.dosopttemplate.data.adapter.home.FriendSealed
 
-class ViewModel : ViewModel() {
+class MockFriendData : ViewModel() {
 
     val mockFriend = listOf<FriendSealed>(
         FriendSealed.MyProfile(

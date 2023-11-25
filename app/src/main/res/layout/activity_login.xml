@@ -4,7 +4,7 @@
     <data>
         <variable
             name="vm"
-            type="org.sopt.dosopttemplate.presentation.auth.AuthViewModel" />
+            type="org.sopt.dosopttemplate.presentation.auth.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
