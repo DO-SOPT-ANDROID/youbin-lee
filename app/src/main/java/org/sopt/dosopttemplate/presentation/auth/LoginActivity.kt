@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.CoroutineScope
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.util.getParcelable
@@ -32,19 +33,23 @@ class LoginActivity : AppCompatActivity() {
         initLoginBtnListener()
         initSignUpBtnListener()
 
-        // onCreate 안에 observe
+        observeLoginSuccess()
+    }
+
+    private fun observeLoginSuccess(){
+        // onCreate 안에 observe 넣어줘야 함
         loginViewModel.loginSuccess.observe(this){
             if(it){
+
             }else{
 
             }
         }
-
     }
 
     private fun  initLoginBtnListener() {
         binding.btnLoginLogin.setOnClickListener {
-
+            // 액티비티가 ViewModel한테 일을 시킴
             loginViewModel.login(
             )
         }
@@ -66,8 +71,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
-    //배경 터치하면 키보드 내려가게 하기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         currentFocus?.hideKeyboard()
         return super.dispatchTouchEvent(ev)

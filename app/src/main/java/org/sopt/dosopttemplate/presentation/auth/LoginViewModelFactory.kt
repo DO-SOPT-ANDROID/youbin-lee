@@ -6,6 +6,8 @@ import org.sopt.dosopttemplate.data.repository.AuthRepository
 import org.sopt.dosopttemplate.di.ServicePool
 
 class LoginViewModelFactory : ViewModelProvider.Factory {
+
+    // repository는 매개변수를 사용할 수 없음 그래서 create를 오버라이딩 해줌
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) { //modelClass가 AuthViewModel인지 확인
             val repository =
