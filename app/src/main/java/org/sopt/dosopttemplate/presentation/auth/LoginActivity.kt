@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.data.model.request.RequestLoginDto
@@ -26,16 +27,36 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private lateinit var user : User
 
+    private val authViewModel: AuthViewModel by viewModels { AuthViewModelFactory() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.vm = authViewModel
         initSignUpActivityLauncher()
         initLoginBtnListener()
         initSignUpBtnListener()
 
+        // onCreate 안에 observe
+        authViewModel.loginSuccess.observe(this){
+            if(it){
+            }else{
+
+            }
+        }
+
     }
+
+    private fun  initLoginBtnListener() {
+        binding.btnLoginLogin.setOnClickListener {
+
+            authViewModel.login(
+            )
+        }
+    }
+
     private fun initSignUpActivityLauncher(){
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) { result ->
@@ -44,40 +65,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun initLoginBtnListener(){
-        binding.btnLoginLogin.setOnClickListener{
-            login()
-        }
-    }
-
-    private fun login() {
-        val id = binding.etLoginId.text.toString()
-        val password = binding.etLoginPw.text.toString()
-
-        authService.login(RequestLoginDto(id, password))
-            .enqueue(object : retrofit2.Callback<ResponseLoginDto> {
-                override fun onResponse(
-                    call: Call<ResponseLoginDto>,
-                    response: Response<ResponseLoginDto>,
-                ) {
-                    if (response.isSuccessful) {
-                        val data: ResponseLoginDto = response.body()!!
-                        val userId = data.id
-                        shortToast("\"로그인이 성공하였고 유저의 ID는 $userId 입니둥\"")
-
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                        intent.putExtra("User", user)
-                        startActivity(intent)
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseLoginDto>, t: Throwable) {
-                    shortToast("서버 에러 발생")
-                }
-            })
-    }
-
 
     private fun initSignUpBtnListener(){
         binding.btnLoginSignup.setOnClickListener{
