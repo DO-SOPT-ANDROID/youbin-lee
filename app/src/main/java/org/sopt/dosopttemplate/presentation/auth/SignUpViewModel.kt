@@ -1,12 +1,11 @@
 package org.sopt.dosopttemplate.presentation.auth
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.sopt.dosopttemplate.data.model.request.RequestSignUpDto
+import org.sopt.dosopttemplate.data.model.request.SignUpRequestDto
 import org.sopt.dosopttemplate.data.repository.SignUpRepository
 
 
@@ -21,20 +20,16 @@ class SignUpViewModel(private val repository: SignUpRepository) : ViewModel() {
     val signUpNickname = MutableLiveData<String>()
     val signUpMbti = MutableLiveData<String>()
     fun checkSignUpAvailable() {
-        Log.d("LYB", "일단 함수는 들어옴")
-
         if (isInputValid(signUpId.value, signUpPw.value, signUpNickname.value, signUpMbti.value)) {
-            Log.d("LYB", "유효한 정보임")
             viewModelScope.launch {
                 repository.getSignUp(
-                    RequestSignUpDto(
+                    SignUpRequestDto(
                         signUpId.value!!,
                         signUpPw.value!!,
                         signUpNickname.value!!
                     )
                 )
                     .onSuccess {
-                        Log.d("LYB", "성공으로 들어옴")
                         _signUpResult.value = it
                         _signUpSuccess.value = true
                     }
@@ -42,9 +37,6 @@ class SignUpViewModel(private val repository: SignUpRepository) : ViewModel() {
                         _signUpSuccess.value = false
                     }
             }
-        } else {
-            Log.d("LYB", "조건에 충족하지 않음")
-
         }
     }
 
@@ -54,7 +46,6 @@ class SignUpViewModel(private val repository: SignUpRepository) : ViewModel() {
         nickname: String?,
         mbti: String?
     ): Boolean {
-        Log.d("LYB", "유효한지 검사하는 중")
         if (id != null && password != null && nickname != null && mbti != null) {
             return id.isNotEmpty() && id.length in 6..10 &&
                     password.isNotEmpty() && password.length in 8..12 &&

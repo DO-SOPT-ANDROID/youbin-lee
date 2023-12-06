@@ -1,21 +1,13 @@
 package org.sopt.dosopttemplate.presentation.auth
 
-import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
-import android.widget.Toast
 import androidx.activity.viewModels
 import org.sopt.dosopttemplate.data.User
-import org.sopt.dosopttemplate.data.model.request.RequestSignUpDto
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
-import org.sopt.dosopttemplate.di.ServicePool
 import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.shortToast
-import retrofit2.Call
-import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -52,10 +44,8 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         currentFocus?.hideKeyboard()
         return super.dispatchTouchEvent(ev)
     }
-
 }

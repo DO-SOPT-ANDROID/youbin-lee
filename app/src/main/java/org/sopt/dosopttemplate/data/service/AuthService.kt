@@ -1,20 +1,19 @@
 package org.sopt.dosopttemplate.data.service
 
-import retrofit2.Call
-import org.sopt.dosopttemplate.data.model.request.RequestLoginDto
-import org.sopt.dosopttemplate.data.model.request.RequestSignUpDto
-import org.sopt.dosopttemplate.data.model.response.ResponseLoginDto
+import org.sopt.dosopttemplate.data.model.request.LoginRequestDto
+import org.sopt.dosopttemplate.data.model.request.SignUpRequestDto
+import org.sopt.dosopttemplate.data.model.response.LoginResponseDto
 import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AuthService {
     @POST("api/v1/members")
     suspend fun checkSignUpAvailableFromServer(
-        @Body request: RequestSignUpDto,
+        @Body request: SignUpRequestDto,
     ): Unit
 
     @POST("api/v1/members/sign-in")
     suspend fun  checkLoginAvailableFromServer(
-        @Body request: RequestLoginDto,
-    ): ResponseLoginDto
+        @Body request: LoginRequestDto,
+    ): LoginResponseDto
 }

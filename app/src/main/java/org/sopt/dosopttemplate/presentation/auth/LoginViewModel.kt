@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.sopt.dosopttemplate.data.model.request.RequestLoginDto
-import org.sopt.dosopttemplate.data.model.response.ResponseLoginDto
+import org.sopt.dosopttemplate.data.model.request.LoginRequestDto
+import org.sopt.dosopttemplate.data.model.response.LoginResponseDto
 import org.sopt.dosopttemplate.data.repository.LoginRepository
 
 class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
-    private val _loginResult: MutableLiveData<ResponseLoginDto> = MutableLiveData()
-    val loginResult: LiveData<ResponseLoginDto> get() = _loginResult
+    private val _loginResult: MutableLiveData<LoginResponseDto> = MutableLiveData()
+    val loginResult: LiveData<LoginResponseDto> get() = _loginResult
 
     private val _loginSuccess: MutableLiveData<Boolean> = MutableLiveData()
     val loginSuccess: LiveData<Boolean> get() = _loginSuccess
@@ -26,7 +26,7 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
         viewModelScope.launch {
             // repository로 일을 분리시킴
             repository.getLogin(
-                RequestLoginDto(
+                LoginRequestDto(
                     id.value,
                     pw.value
                 )
