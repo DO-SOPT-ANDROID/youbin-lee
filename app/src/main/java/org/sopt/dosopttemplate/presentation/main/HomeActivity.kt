@@ -22,6 +22,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        replaceFragment(HomeFragment())
         doubleBackPressed()
         clickBottomNavigation()
         getUserData()

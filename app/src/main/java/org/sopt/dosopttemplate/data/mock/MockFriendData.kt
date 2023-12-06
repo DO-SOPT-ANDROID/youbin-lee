@@ -2,7 +2,7 @@ package org.sopt.dosopttemplate.data.mock
 
 import androidx.lifecycle.ViewModel
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.adapter.home.FriendSealed
+import org.sopt.dosopttemplate.presentation.main.home.FriendSealed
 
 class MockFriendData : ViewModel() {
 

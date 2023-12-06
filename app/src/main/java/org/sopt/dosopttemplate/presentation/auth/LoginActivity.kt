@@ -13,6 +13,7 @@ import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.util.getParcelable
 import org.sopt.dosopttemplate.util.hideKeyboard
+import org.sopt.dosopttemplate.util.shortToast
 
 
 class LoginActivity : AppCompatActivity() {
@@ -32,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
         initSignUpActivityLauncher()
         initLoginBtnListener()
         initSignUpBtnListener()
-
         observeLoginSuccess()
     }
 
@@ -40,9 +40,9 @@ class LoginActivity : AppCompatActivity() {
         // onCreate 안에 observe 넣어줘야 함
         loginViewModel.loginSuccess.observe(this){
             if(it){
-
+                shortToast("로그인이 성공하였고 유저의 ID는 $ userId 입니둥")
             }else{
-
+                shortToast("로그인 실패")
             }
         }
     }
@@ -50,8 +50,7 @@ class LoginActivity : AppCompatActivity() {
     private fun  initLoginBtnListener() {
         binding.btnLoginLogin.setOnClickListener {
             // 액티비티가 ViewModel한테 일을 시킴
-            loginViewModel.login(
-            )
+            loginViewModel.login()
         }
     }
 
