@@ -40,7 +40,8 @@ class LoginActivity : AppCompatActivity() {
         // onCreate 안에 observe 넣어줘야 함
         loginViewModel.loginSuccess.observe(this) {
             if (it) {
-                shortToast("로그인이 성공하였고 유저의 ID는 $ userId 입니둥")
+                val userId = loginViewModel.loginResult.value?.id
+                shortToast("로그인이 성공하였고 유저의 ID는 $userId 입니둥")
                 val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                 intent.putExtra("User", user)
                 startActivity(intent)

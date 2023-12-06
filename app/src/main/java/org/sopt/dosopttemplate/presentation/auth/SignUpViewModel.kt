@@ -1,13 +1,14 @@
 package org.sopt.dosopttemplate.presentation.auth
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.data.model.request.SignUpRequestDto
 import org.sopt.dosopttemplate.data.repository.SignUpRepository
-
 
 class SignUpViewModel(private val repository: SignUpRepository) : ViewModel() {
     private val _signUpResult: MutableLiveData<Unit> = MutableLiveData()
@@ -19,8 +20,9 @@ class SignUpViewModel(private val repository: SignUpRepository) : ViewModel() {
     val signUpPw = MutableLiveData<String>()
     val signUpNickname = MutableLiveData<String>()
     val signUpMbti = MutableLiveData<String>()
-    fun checkSignUpAvailable() {
+    fun checkSignUpAvailable(signUpUser: User, context: Context) {
         if (isInputValid(signUpId.value, signUpPw.value, signUpNickname.value, signUpMbti.value)) {
+
             viewModelScope.launch {
                 repository.getSignUp(
                     SignUpRequestDto(
@@ -56,4 +58,7 @@ class SignUpViewModel(private val repository: SignUpRepository) : ViewModel() {
         }
     }
 
+    fun createUser(): User {
+        return User(signUpId.value!!, signUpPw.value!!, signUpNickname.value!!, signUpMbti.value!!)
+    }
 }

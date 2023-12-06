@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.activity.viewModels
+import androidx.lifecycle.MutableLiveData
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
 import org.sopt.dosopttemplate.util.hideKeyboard
@@ -12,6 +13,7 @@ import org.sopt.dosopttemplate.util.shortToast
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var user: User
+
     private val signUpViewModel: SignUpViewModel by viewModels { SignUpViewModelFactory() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,12 +24,12 @@ class SignUpActivity : AppCompatActivity() {
 
         signUpBtnListener()
         observeSignUpSuccess()
-
     }
 
     private fun signUpBtnListener() {
         binding.btnSignUpSignup.setOnClickListener {
-            signUpViewModel.checkSignUpAvailable()
+            user = signUpViewModel.createUser()
+            signUpViewModel.checkSignUpAvailable(user, this)
         }
     }
 
