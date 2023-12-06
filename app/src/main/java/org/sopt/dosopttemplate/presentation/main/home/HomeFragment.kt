@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import org.sopt.dosopttemplate.data.mock.MockFriendData
 import org.sopt.dosopttemplate.databinding.FragmentHomeBinding
+import org.sopt.dosopttemplate.presentation.main.home.adapter.FriendAdapter
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
