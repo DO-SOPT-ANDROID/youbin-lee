@@ -10,7 +10,6 @@ fun AppCompatActivity.doubleBackPressed() {
 
     this.onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            // 3초 이내에 백 버튼을 누르면 종료
             if (System.currentTimeMillis() - initTime > 3000) {
                 shortToast("뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.")
                 initTime = System.currentTimeMillis()

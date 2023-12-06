@@ -11,15 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.CoroutineScope
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
+import org.sopt.dosopttemplate.presentation.main.HomeActivity
 import org.sopt.dosopttemplate.util.getParcelable
 import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.shortToast
 
-
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
-    private lateinit var user : User
+    private lateinit var user: User
 
     private val loginViewModel: LoginViewModel by viewModels { LoginViewModelFactory() }
 
@@ -36,35 +36,39 @@ class LoginActivity : AppCompatActivity() {
         observeLoginSuccess()
     }
 
-    private fun observeLoginSuccess(){
+    private fun observeLoginSuccess() {
         // onCreate 안에 observe 넣어줘야 함
-        loginViewModel.loginSuccess.observe(this){
-            if(it){
+        loginViewModel.loginSuccess.observe(this) {
+            if (it) {
                 shortToast("로그인이 성공하였고 유저의 ID는 $ userId 입니둥")
-            }else{
+                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                intent.putExtra("User", user)
+                startActivity(intent)
+            } else {
                 shortToast("로그인 실패")
             }
         }
     }
 
-    private fun  initLoginBtnListener() {
+    private fun initLoginBtnListener() {
         binding.btnLoginLogin.setOnClickListener {
             // 액티비티가 ViewModel한테 일을 시킴
-            loginViewModel.login()
+            loginViewModel.checkLoginAvailable()
         }
     }
 
-    private fun initSignUpActivityLauncher(){
+    private fun initSignUpActivityLauncher() {
         resultLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()) { result ->
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 user = result.data?.getParcelable("User", User::class.java)!!
             }
         }
     }
 
-    private fun initSignUpBtnListener(){
-        binding.btnLoginSignup.setOnClickListener{
+    private fun initSignUpBtnListener() {
+        binding.btnLoginSignup.setOnClickListener {
             val intentSignUpAcitivty = Intent(this, SignUpActivity::class.java)
             resultLauncher.launch(intentSignUpAcitivty)
         }

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.widget.Toast
+import androidx.activity.viewModels
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.data.model.request.RequestSignUpDto
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
@@ -17,66 +18,38 @@ import retrofit2.Call
 import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
-    private lateinit var binding : ActivitySignUpBinding
-    private lateinit var user : User
+    private lateinit var binding: ActivitySignUpBinding
+    private lateinit var user: User
+    private val signUpViewModel: SignUpViewModel by viewModels { SignUpViewModelFactory() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.vm = signUpViewModel
+
         signUpBtnListener()
+        observeSignUpSuccess()
 
     }
-    private fun signUpBtnListener(){
-        binding.btnSignUpSignup.setOnClickListener{
-            val id = binding.etSignUpId.text.toString()
-            val password = binding.etSignUpPw.text.toString()
-            val nickname = binding.etSignUpNickname.text.toString()
-            val mbti = binding.etSignUpMbti.text.toString()
 
-            if(isInputValid(id, password, nickname, mbti)){
-                user = User(id, password, nickname, mbti)
-                signUp(user, this)
-
-            }else{
-                shortToast("정보를 다시 입력해주세요")
-            }
+    private fun signUpBtnListener() {
+        binding.btnSignUpSignup.setOnClickListener {
+            signUpViewModel.checkSignUpAvailable()
         }
     }
-    fun signUp(signUpUser: User, context: Context) {
-        ServicePool.authService.checkSignUpAvailableFromServer(
-            RequestSignUpDto(signUpUser.id, signUpUser.password, signUpUser.nickName,),
-        )
-            .enqueue(object : retrofit2.Callback<Unit> {
-                override fun onResponse(
-                    call: Call<Unit>,
-                    response: Response<Unit>,
-                ) {
-                    Log.d("Response", response.toString())
-                    if (response.isSuccessful) {
-                        shortToast("회원가입 성공")
-                        intent.putExtra("User", user)
-                        setResult(RESULT_OK, intent)
-                        finish()
-                    }else{
-                        shortToast("회원가입 실패")
-                    }
-                }
-                override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    shortToast("서버 에러")
-                }
-            })
-    }
-    private fun isInputValid(
-        id: String,
-        password: String,
-        nickname: String,
-        address: String
-    ): Boolean {
-        return id.isNotEmpty() && id.length in 6..10 &&
-                password.isNotEmpty() && password.length in 8..12 &&
-                nickname.isNotEmpty() &&
-                address.isNotEmpty()
+
+    private fun observeSignUpSuccess() {
+        signUpViewModel.signUpSuccess.observe(this) {
+            if (it) {
+                shortToast("회원가입 성공")
+                intent.putExtra("User", user)
+                setResult(RESULT_OK, intent)
+                finish()
+            } else {
+                shortToast("회원가입 실패")
+            }
+        }
     }
 
 
