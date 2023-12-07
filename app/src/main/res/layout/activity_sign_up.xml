@@ -33,92 +33,143 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="ID"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_signUp_title" />
 
-        <EditText
-            android:id="@+id/et_signUp_id"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_signUp_id"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:hint="아이디를 입력해주세요"
-            android:inputType="text"
-            android:text="@={vm.signUpId}"
+            android:layout_marginTop="5dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_signUp_id" />
+            app:layout_constraintTop_toBottomOf="@id/tv_signUp_id" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_sign_up_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="username"
+                android:hint="아이디를 입력해주세요"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:text="@={vm.signUpId}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
-            android:id="@+id/tv_signUp_pw"
+            android:id="@+id/tv_sign_up_pw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="비밀번호"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_signUp_id" />
+            app:layout_constraintTop_toBottomOf="@id/layout_signUp_id" />
 
-        <EditText
-            android:id="@+id/et_signUp_pw"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_sign_up_pw"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:hint="비밀번호를 입력해주세요"
-            android:inputType="textPassword"
-            android:text="@={vm.signUpPw}"
+            android:layout_marginTop="5dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_signUp_pw" />
+            app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pw">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_sign_up_pw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="password"
+                android:hint="비밀번호를 입력해주세요"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:text="@={vm.signUpPw}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_signUp_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="닉네임"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_signUp_pw" />
+            app:layout_constraintTop_toBottomOf="@id/layout_sign_up_pw" />
 
-        <EditText
-            android:id="@+id/et_signUp_nickname"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_signUp_nickname"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:hint="닉네임을 입력해주세요"
-            android:inputType="text"
-            android:text="@={vm.signUpNickname}"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_signUp_nickname" />
+            app:layout_constraintTop_toBottomOf="@id/tv_signUp_nickname" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_sign_up_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="닉네임을 입력해주세요"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:text="@={vm.signUpNickname}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             android:id="@+id/tv_signUp_mbti"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="MBTI"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_signUp_nickname" />
+            app:layout_constraintTop_toBottomOf="@id/layout_signUp_nickname" />
 
-        <EditText
-            android:id="@+id/et_signUp_mbti"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_signUp_mbti"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:hint="MBTI를 입력해주세요"
-            android:inputType="text"
-            android:text="@={vm.signUpMbti}"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_signUp_mbti" />
+            app:layout_constraintTop_toBottomOf="@id/tv_signUp_mbti" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_sign_up_drink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="MBTI를 입력해주세요"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:text="@={vm.signUpMbti}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/btn_signUp_signup"
@@ -129,6 +180,7 @@
             android:layout_marginBottom="30dp"
             android:backgroundTint="@color/purple"
             android:text="회원가입하기"
+            android:enabled="@{vm.isButtonValid}"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

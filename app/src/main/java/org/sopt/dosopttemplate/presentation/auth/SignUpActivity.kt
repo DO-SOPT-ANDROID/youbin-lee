@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.activity.viewModels
-import androidx.lifecycle.MutableLiveData
+import androidx.core.content.ContextCompat
+import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
 import org.sopt.dosopttemplate.util.hideKeyboard
@@ -24,6 +25,8 @@ class SignUpActivity : AppCompatActivity() {
 
         signUpBtnListener()
         observeSignUpSuccess()
+        observeSignUpFormat()
+
     }
 
     private fun signUpBtnListener() {
@@ -45,6 +48,28 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun observeSignUpFormat() {
+        signUpViewModel.isIdValid.observe(this) { isValid ->
+            if (!isValid) {
+                binding.layoutSignUpId.isErrorEnabled = true
+                binding.layoutSignUpId.error = getString(R.string.sign_up_id_error)
+            } else {
+                binding.layoutSignUpId.isErrorEnabled = false
+            }
+        }
+
+        signUpViewModel.isPwValid.observe(this) { isValid ->
+            if (!isValid) {
+                binding.layoutSignUpPw.isErrorEnabled = true
+                binding.layoutSignUpPw.error = getString(R.string.sign_up_pw_error)
+            } else {
+                binding.layoutSignUpPw.isErrorEnabled = false
+            }
+        }
+      signUpViewModel.checkButton()
+    }
+
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         currentFocus?.hideKeyboard()
