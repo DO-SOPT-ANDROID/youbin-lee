@@ -56,6 +56,7 @@ class SignUpViewModel(private val repository: SignUpRepository) : ViewModel() {
     fun createUser(): User {
         return User(signUpId.value!!, signUpPw.value!!, signUpNickname.value!!, signUpMbti.value!!)
     }
+
     fun checkId(id: String?): Boolean {
         val idMatcher = ID_PATTERN.matcher(id.orEmpty())
         return id.isNullOrBlank() || idMatcher.find()
