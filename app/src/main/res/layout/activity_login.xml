@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+
         <variable
             name="vm"
             type="org.sopt.dosopttemplate.presentation.auth.LoginViewModel" />
@@ -42,8 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:hint="아이디를 입력해주세요"
-            android:text="@={vm.id}"
             android:inputType="text"
+            android:text="@={vm.id}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_login_id" />
@@ -65,8 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:hint="비밀번호를 입력해주세요"
-            android:text="@={vm.pw}"
             android:inputType="textPassword"
+            android:text="@={vm.pw}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_login_pw" />

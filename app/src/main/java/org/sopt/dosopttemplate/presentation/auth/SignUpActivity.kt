@@ -20,6 +20,7 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.lifecycleOwner = this
 
         binding.vm = signUpViewModel
 
@@ -57,8 +58,8 @@ class SignUpActivity : AppCompatActivity() {
             } else {
                 binding.layoutSignUpId.isErrorEnabled = false
             }
+            signUpViewModel.checkButton()
         }
-
         signUpViewModel.isPwValid.observe(this) { isValid ->
             if (!isValid) {
                 binding.layoutSignUpPw.isErrorEnabled = true
@@ -66,8 +67,8 @@ class SignUpActivity : AppCompatActivity() {
             } else {
                 binding.layoutSignUpPw.isErrorEnabled = false
             }
+            signUpViewModel.checkButton()
         }
-      signUpViewModel.checkButton()
     }
 
 
