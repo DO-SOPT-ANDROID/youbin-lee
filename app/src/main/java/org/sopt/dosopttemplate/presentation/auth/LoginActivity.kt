@@ -4,90 +4,76 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.sopt.dosopttemplate.data.User
-import org.sopt.dosopttemplate.data.model.request.RequestLoginDto
-import org.sopt.dosopttemplate.data.model.response.ResponseLoginDto
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
-import org.sopt.dosopttemplate.di.ServicePool.authService
 import org.sopt.dosopttemplate.presentation.main.HomeActivity
 import org.sopt.dosopttemplate.util.getParcelable
 import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.shortToast
-import retrofit2.Call
-import retrofit2.Response
-
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
-    private lateinit var user : User
+    private lateinit var user: User
+
+    private val loginViewModel: LoginViewModel by viewModels { LoginViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.vm = loginViewModel
+
         initSignUpActivityLauncher()
         initLoginBtnListener()
         initSignUpBtnListener()
-
+        observeLoginSuccess()
     }
-    private fun initSignUpActivityLauncher(){
+
+    private fun observeLoginSuccess() {
+        // onCreate 안에 observe 넣어줘야 함
+        loginViewModel.loginSuccess.observe(this) {
+            if (it) {
+                val userId = loginViewModel.loginResult.value?.id
+                shortToast("로그인이 성공하였고 유저의 ID는 $userId 입니둥")
+                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                intent.putExtra("User", user)
+                startActivity(intent)
+            } else {
+                shortToast("로그인 실패")
+            }
+        }
+    }
+
+    private fun initLoginBtnListener() {
+        binding.btnLoginLogin.setOnClickListener {
+            // 액티비티가 ViewModel한테 일을 시킴
+            loginViewModel.checkLoginAvailable()
+        }
+    }
+
+    private fun initSignUpActivityLauncher() {
         resultLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()) { result ->
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 user = result.data?.getParcelable("User", User::class.java)!!
             }
         }
     }
 
-    private fun initLoginBtnListener(){
-        binding.btnLoginLogin.setOnClickListener{
-            login()
-        }
-    }
-
-    private fun login() {
-        val id = binding.etLoginId.text.toString()
-        val password = binding.etLoginPw.text.toString()
-
-        authService.login(RequestLoginDto(id, password))
-            .enqueue(object : retrofit2.Callback<ResponseLoginDto> {
-                override fun onResponse(
-                    call: Call<ResponseLoginDto>,
-                    response: Response<ResponseLoginDto>,
-                ) {
-                    if (response.isSuccessful) {
-                        val data: ResponseLoginDto = response.body()!!
-                        val userId = data.id
-                        shortToast("\"로그인이 성공하였고 유저의 ID는 $userId 입니둥\"")
-
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                        intent.putExtra("User", user)
-                        startActivity(intent)
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseLoginDto>, t: Throwable) {
-                    shortToast("서버 에러 발생")
-                }
-            })
-    }
-
-
-    private fun initSignUpBtnListener(){
-        binding.btnLoginSignup.setOnClickListener{
+    private fun initSignUpBtnListener() {
+        binding.btnLoginSignup.setOnClickListener {
             val intentSignUpAcitivty = Intent(this, SignUpActivity::class.java)
             resultLauncher.launch(intentSignUpAcitivty)
         }
     }
 
-
-    //배경 터치하면 키보드 내려가게 하기
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         currentFocus?.hideKeyboard()
         return super.dispatchTouchEvent(ev)

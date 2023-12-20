@@ -15,8 +15,8 @@ import org.sopt.dosopttemplate.presentation.main.mypage.MyPageFragment
 import org.sopt.dosopttemplate.util.getParcelable
 
 class HomeActivity : AppCompatActivity() {
-    lateinit var binding : ActivityHomeBinding
-    private lateinit var user : User
+    lateinit var binding: ActivityHomeBinding
+    private lateinit var user: User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -26,21 +26,25 @@ class HomeActivity : AppCompatActivity() {
         clickBottomNavigation()
         getUserData()
     }
-    private fun clickBottomNavigation(){
+
+    private fun clickBottomNavigation() {
         binding.bnvHome.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
                     replaceFragment(HomeFragment())
                     true
                 }
+
                 R.id.menu_do_android -> {
                     replaceFragment(DoAndroidFragment())
                     true
                 }
+
                 R.id.menu_follower_list -> {
                     replaceFragment(FollowerListFragment())
                     true
                 }
+
                 R.id.menu_mypage -> {
                     val myPageFragment = MyPageFragment().apply {
                         arguments = Bundle().apply {
@@ -50,15 +54,18 @@ class HomeActivity : AppCompatActivity() {
                     replaceFragment(myPageFragment)
                     true
                 }
+
                 else -> false
             }
         }
     }
-    private fun replaceFragment(fragment : Fragment){
+
+    private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fcv_home, fragment)
             .commit()
     }
+
     private fun getUserData() {
         user = intent.getParcelable("User", User::class.java)!!
     }

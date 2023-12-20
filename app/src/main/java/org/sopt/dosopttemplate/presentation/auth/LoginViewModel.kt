@@ -1,51 +1,43 @@
 package org.sopt.dosopttemplate.presentation.auth
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import org.sopt.dosopttemplate.data.User
-import org.sopt.dosopttemplate.data.model.request.RequestLoginDto
-import org.sopt.dosopttemplate.data.model.response.ResponseLoginDto
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-//
-//class LoginViewModel : ViewModel() {
-//    var user: User? = null
-//
-//    val enteredId = MutableLiveData<String>()
-//    val enteredPwd = MutableLiveData<String>()
-//    val loginResult = MutableLiveData<String>()
-//
-//    fun updateUser(userInfo: User) {
-//        user = userInfo
-//    }
-//
-//    fun checkLoginInfo(): Boolean {
-//        return enteredId.value.equals(user?.id) && enteredPwd.value.equals(user?.password)
-//    }
-//
-//    fun login(){
-//        Log.d("LYB", "뷰모델 들어옴")
-//        // 로그인 메소드에 맞는 파라미터 담아주기
-//        authService.login(RequestLoginDto(enteredId.value!!, enteredPwd.value!!))
-//            // enqueue를 통해 비동기 방식으로 네트워크 요청 보내기
-//            .enqueue(object : Callback<ResponseLoginDto> {
-//                // 요청이 성공한 경우 호출
-//                override fun onResponse(
-//                    call: Call<ResponseLoginDto>,
-//                    response: Response<ResponseLoginDto>,
-//                ) {
-//                    if (response.isSuccessful) {
-//                        val data: ResponseLoginDto = response.body()!!
-//                        val userId = data.id
-//                        loginResult.value = "로그인이 성공하였고 유저의 ID는 $userId 입니다."
-//                    }
-//                }
-//                // 요청 중 오류 발생한 경우 호출
-//                override fun onFailure(call: Call<ResponseLoginDto>, t: Throwable) {
-//                    loginResult.value = "서버 에러 발생"
-//                }
-//            })
-//    }
-//}
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import org.sopt.dosopttemplate.data.model.request.LoginRequestDto
+import org.sopt.dosopttemplate.data.model.response.LoginResponseDto
+import org.sopt.dosopttemplate.data.repository.LoginRepository
+
+class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
+    private val _loginResult: MutableLiveData<LoginResponseDto> = MutableLiveData()
+    val loginResult: LiveData<LoginResponseDto> get() = _loginResult
+
+    private val _loginSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val loginSuccess: LiveData<Boolean> get() = _loginSuccess
+
+    val id = MutableLiveData<String>()
+    val pw = MutableLiveData<String>()
+    //mutable은 value로 접근
+
+    fun checkLoginAvailable() {
+        // 근데 이제 ViewModel이 모든 일을 처리하지 않고 역할 분담을 함
+        // repository에서 runcatching을 해줬으니까 여기서는 해줄 필요가 없음
+        viewModelScope.launch {
+            // repository로 일을 분리시킴
+            repository.getLogin(
+                LoginRequestDto(
+                    id.value,
+                    pw.value
+                )
+            )
+                // 그러면 ViewModel이 맞았는지 확인만 함
+                .onSuccess {
+                    _loginResult.value = it
+                    _loginSuccess.value = true
+                }.onFailure {
+                    _loginSuccess.value = false
+                }
+        }
+    }
+}
