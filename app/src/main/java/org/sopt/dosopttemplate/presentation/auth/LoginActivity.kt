@@ -8,9 +8,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.presentation.main.HomeActivity
+import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.getParcelable
 import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.shortToast
@@ -36,13 +40,23 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun observeLoginSuccess() {
-        loginViewModel.loginSuccess.observe(this) {
-            if (it) {
-                val userId = loginViewModel.loginResult.value?.id
-                shortToast("로그인이 성공하였고 유저의 ID는 $userId 입니둥")
-                goToHomeActivity()
-            } else {
-                shortToast("로그인 실패")
+        lifecycleScope.launch {
+            loginViewModel.loginState.collect { loginState ->
+                when (loginState) {
+                    is UiState.Success -> {
+                        val userId = loginState.data.id
+                        shortToast("로그인이 성공하였고 유저의 ID는 $userId 입니둥")
+                        goToHomeActivity()
+                    }
+
+                    is UiState.Failure -> {
+                        shortToast("로그인 실패: ${loginState.msg}")
+                    }
+
+                    is UiState.Loading -> {
+                        shortToast("로딩 중..")
+                    }
+                }
             }
         }
     }
