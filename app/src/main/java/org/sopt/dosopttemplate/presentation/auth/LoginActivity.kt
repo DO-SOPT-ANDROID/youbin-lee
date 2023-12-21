@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.presentation.main.HomeActivity
@@ -54,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     is UiState.Loading -> {
-                        shortToast("로딩 중..")
+                        shortToast(getString(R.string.ui_state_loading))
                     }
                 }
             }

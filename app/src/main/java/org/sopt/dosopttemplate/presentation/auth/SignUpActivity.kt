@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
+import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.shortToast
+import kotlin.math.sign
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -38,14 +43,23 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun observeSignUpSuccess() {
-        signUpViewModel.signUpSuccess.observe(this) {
-            if (it) {
-                shortToast("회원가입 성공")
-                intent.putExtra("User", user)
-                setResult(RESULT_OK, intent)
-                finish()
-            } else {
-                shortToast("회원가입 실패")
+        lifecycleScope.launch {
+            signUpViewModel.signUpState.collect{signUpState ->
+                when(signUpState){
+                    is UiState.Success -> {
+                        shortToast("회원가입 성공")
+                        intent.putExtra("User", user)
+                        setResult(RESULT_OK, intent)
+                        finish()
+                    }
+                    is UiState.Failure -> {
+                        shortToast("회원가입 실패: ${signUpState.msg}")
+                    }
+                    is UiState.Loading -> {
+                        shortToast(getString(R.string.ui_state_loading))
+                    }
+                }
+
             }
         }
     }
