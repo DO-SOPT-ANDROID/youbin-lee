@@ -8,8 +8,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
@@ -42,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun observeLoginSuccess() {
         lifecycleScope.launch {
-            loginViewModel.loginState.collect { loginState ->
+            loginViewModel.loginState.flowWithLifecycle(lifecycle).onEach{ loginState ->
                 when (loginState) {
                     is UiState.Success -> {
                         val userId = loginState.data.id
@@ -58,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                         shortToast(getString(R.string.ui_state_loading))
                     }
                 }
-            }
+            }.launchIn(lifecycleScope)
         }
     }
 
