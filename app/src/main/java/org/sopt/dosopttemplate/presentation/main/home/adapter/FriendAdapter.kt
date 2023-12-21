@@ -9,10 +9,10 @@ import org.sopt.dosopttemplate.databinding.ItemFriendBinding
 import org.sopt.dosopttemplate.databinding.ItemFriendMusicBinding
 import org.sopt.dosopttemplate.databinding.ItemMyProfileBinding
 
-class FriendAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val inflater by lazy{ LayoutInflater.from(context)}
-    private var friendList : List<FriendSealed> = emptyList()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) :RecyclerView.ViewHolder {
+class FriendAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val inflater by lazy { LayoutInflater.from(context) }
+    private var friendList: List<FriendSealed> = emptyList()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(viewType, parent, false)
 
@@ -20,6 +20,7 @@ class FriendAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewH
             R.layout.item_friend -> FriendProfileViewHolder(
                 ItemFriendBinding.bind(view),
             )
+
             R.layout.item_friend_music -> FriendMusicViewHolder(
                 ItemFriendMusicBinding.bind(view),
             )
@@ -29,6 +30,7 @@ class FriendAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewH
             )
         }
     }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = friendList[position]
 
@@ -39,10 +41,8 @@ class FriendAdapter(context : Context) : RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    override fun getItemCount()= friendList.size
-
-    // 임시 리스트에 준비해둔 가짜 리스트를 연결하는 함수
-    fun setFriendList(friendList : List<FriendSealed>){
+    override fun getItemCount() = friendList.size
+    fun setFriendList(friendList: List<FriendSealed>) {
         this.friendList = friendList.toList()
         notifyDataSetChanged()
     }

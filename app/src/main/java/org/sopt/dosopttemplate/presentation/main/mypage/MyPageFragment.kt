@@ -16,7 +16,7 @@ class MyPageFragment : Fragment() {
 
     private var _binding: FragmentMyPageBinding? = null
     private val binding get() = _binding!!
-    private lateinit var user : User
+    private lateinit var user: User
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +31,7 @@ class MyPageFragment : Fragment() {
 
         getUserData()
 
-        binding.run{
+        binding.run {
             tvMyPageId.text = user.id
             tvMyPageNickname.text = user.nickName
             tvMyPageMbti.text = user.mbti
@@ -41,11 +41,13 @@ class MyPageFragment : Fragment() {
         logoutBtnListener()
 
     }
+
     private fun getUserData() {
         user = arguments?.getParcelable("User")!!
     }
-    private fun logoutBtnListener(){
-        binding.btnMyPageLogout.setOnClickListener{
+
+    private fun logoutBtnListener() {
+        binding.btnMyPageLogout.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             }
@@ -53,8 +55,7 @@ class MyPageFragment : Fragment() {
         }
     }
 
-    // 생일을 설정할 수 있는 다이얼로그
-    private fun datePickerListener(){
+    private fun datePickerListener() {
         binding.btnMyPageBirth.setOnClickListener {
             val datePicker =
                 MaterialDatePicker.Builder.datePicker()
@@ -62,7 +63,6 @@ class MyPageFragment : Fragment() {
                     .build()
 
             datePicker.addOnPositiveButtonClickListener { selection ->
-                // 선택된 날짜를 표시
                 binding.tvMyPageBirth.text = datePicker.headerText
             }
             datePicker.show(childFragmentManager, datePicker.toString())

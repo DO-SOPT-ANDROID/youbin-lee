@@ -36,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun observeLoginSuccess() {
-        // onCreate 안에 observe 넣어줘야 함
         loginViewModel.loginSuccess.observe(this) {
             if (it) {
                 val userId = loginViewModel.loginResult.value?.id
@@ -52,7 +51,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initLoginBtnListener() {
         binding.btnLoginLogin.setOnClickListener {
-            // 액티비티가 ViewModel한테 일을 시킴
             loginViewModel.checkLoginAvailable()
         }
     }
