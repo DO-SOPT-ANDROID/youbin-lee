@@ -48,9 +48,7 @@ class SignUpActivity : AppCompatActivity() {
                 when(signUpState){
                     is UiState.Success -> {
                         shortToast("회원가입 성공")
-                        intent.putExtra("User", user)
-                        setResult(RESULT_OK, intent)
-                        finish()
+                        goToLoginActivity()
                     }
                     is UiState.Failure -> {
                         shortToast("회원가입 실패: ${signUpState.msg}")
@@ -85,6 +83,11 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    private fun goToLoginActivity(){
+        intent.putExtra("User", user)
+        setResult(RESULT_OK, intent)
+        finish()
+    }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         currentFocus?.hideKeyboard()
