@@ -40,13 +40,17 @@ class LoginActivity : AppCompatActivity() {
             if (it) {
                 val userId = loginViewModel.loginResult.value?.id
                 shortToast("로그인이 성공하였고 유저의 ID는 $userId 입니둥")
-                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                intent.putExtra("User", user)
-                startActivity(intent)
+                goToHomeActivity()
             } else {
                 shortToast("로그인 실패")
             }
         }
+    }
+
+    private fun goToHomeActivity() {
+        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+        intent.putExtra("User", user)
+        startActivity(intent)
     }
 
     private fun initLoginBtnListener() {

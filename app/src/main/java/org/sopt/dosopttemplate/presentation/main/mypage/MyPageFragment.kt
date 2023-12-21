@@ -15,7 +15,8 @@ import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 class MyPageFragment : Fragment() {
 
     private var _binding: FragmentMyPageBinding? = null
-    private val binding get() = _binding!!
+    private val binding : FragmentMyPageBinding get () = requireNotNull(_binding)
+
     private lateinit var user: User
     override fun onCreateView(
         inflater: LayoutInflater,
