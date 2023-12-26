@@ -12,7 +12,7 @@ import org.sopt.dosopttemplate.presentation.main.home.adapter.FriendAdapter
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private val binding : FragmentHomeBinding get() = requireNotNull(_binding)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

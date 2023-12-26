@@ -2,23 +2,24 @@ package org.sopt.dosopttemplate.presentation.auth
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.data.model.request.SignUpRequestDto
-import org.sopt.dosopttemplate.data.repository.SignUpRepository
+import org.sopt.dosopttemplate.di.ServicePool.authService
+import org.sopt.dosopttemplate.util.UiState
 import java.util.regex.Pattern
 
 
-class SignUpViewModel(private val repository: SignUpRepository) : ViewModel() {
-    private val _signUpResult: MutableLiveData<Unit> = MutableLiveData()
-    val signUpResult: LiveData<Unit> get() = _signUpResult
-    private val _signUpSuccess: MutableLiveData<Boolean> = MutableLiveData()
-    val signUpSuccess: LiveData<Boolean> get() = _signUpSuccess
+class SignUpViewModel() : ViewModel() {
+
+    private val _signUpState = MutableStateFlow<UiState<User>>(UiState.Loading)
+    val signUpState : StateFlow<UiState<User>> get() = _signUpState
 
     val signUpId = MutableLiveData<String>()
     val signUpPw = MutableLiveData<String>()
@@ -35,26 +36,32 @@ class SignUpViewModel(private val repository: SignUpRepository) : ViewModel() {
 
     fun checkSignUpAvailable(signUpUser: User, context: Context) {
         viewModelScope.launch {
-            repository.getSignUp(
-                SignUpRequestDto(
-                    signUpId.value!!,
-                    signUpPw.value!!,
-                    signUpNickname.value!!
+            runCatching {
+                authService.checkSignUpAvailableFromServer(
+                    SignUpRequestDto(
+                        signUpId.value ?: "",
+                        signUpPw.value ?: "",
+                        signUpNickname.value ?: ""
+                    )
                 )
-            )
+            }
                 .onSuccess {
-                    _signUpResult.value = it
-                    _signUpSuccess.value = true
+                    _signUpState.value = UiState.Success(User(signUpId.toString(), signUpPw.toString(), signUpNickname.toString(), signUpMbti.toString()))
                 }
                 .onFailure {
-                    _signUpSuccess.value = false
+                    _signUpState.value = UiState.Failure(it.message.toString())
                 }
         }
     }
 
 
     fun createUser(): User {
-        return User(signUpId.value!!, signUpPw.value!!, signUpNickname.value!!, signUpMbti.value!!)
+        return User(
+            signUpId.value ?: "",
+            signUpPw.value ?: "",
+            signUpNickname.value ?: "",
+            signUpMbti.value ?: ""
+        )
     }
 
     fun checkId(id: String?): Boolean {

@@ -8,9 +8,17 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.presentation.main.HomeActivity
+import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.getParcelable
 import org.sopt.dosopttemplate.util.hideKeyboard
 import org.sopt.dosopttemplate.util.shortToast
@@ -36,23 +44,35 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun observeLoginSuccess() {
-        // onCreate 안에 observe 넣어줘야 함
-        loginViewModel.loginSuccess.observe(this) {
-            if (it) {
-                val userId = loginViewModel.loginResult.value?.id
-                shortToast("로그인이 성공하였고 유저의 ID는 $userId 입니둥")
-                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                intent.putExtra("User", user)
-                startActivity(intent)
-            } else {
-                shortToast("로그인 실패")
-            }
+        lifecycleScope.launch {
+            loginViewModel.loginState.flowWithLifecycle(lifecycle).onEach{ loginState ->
+                when (loginState) {
+                    is UiState.Success -> {
+                        val userId = loginState.data.id
+                        shortToast("로그인이 성공하였고 유저의 ID는 $userId 입니둥")
+                        goToHomeActivity()
+                    }
+
+                    is UiState.Failure -> {
+                        shortToast("로그인 실패: ${loginState.msg}")
+                    }
+
+                    is UiState.Loading -> {
+                        shortToast(getString(R.string.ui_state_loading))
+                    }
+                }
+            }.launchIn(lifecycleScope)
         }
+    }
+
+    private fun goToHomeActivity() {
+        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+        intent.putExtra("User", user)
+        startActivity(intent)
     }
 
     private fun initLoginBtnListener() {
         binding.btnLoginLogin.setOnClickListener {
-            // 액티비티가 ViewModel한테 일을 시킴
             loginViewModel.checkLoginAvailable()
         }
     }

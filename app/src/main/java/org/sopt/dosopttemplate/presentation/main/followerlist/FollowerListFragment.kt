@@ -14,7 +14,7 @@ import retrofit2.Response
 
 class FollowerListFragment : Fragment() {
     private var _binding: FragmentFollowerListBinding? = null
-    private val binding get() = _binding!!
+    private val binding : FragmentFollowerListBinding get() = requireNotNull(_binding)
 
     private lateinit var followerAdapter: FollowerListAdapter
 
