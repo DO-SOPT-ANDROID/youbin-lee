@@ -2,7 +2,7 @@ package org.sopt.dosopttemplate.data.model.response
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 @Serializable
-data class FollowerResponse(
+data class FollowerResponseDto(
     @SerialName("page")
     val page: Int,
     @SerialName("per_page")

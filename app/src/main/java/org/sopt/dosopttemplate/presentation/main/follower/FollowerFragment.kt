@@ -5,25 +5,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import org.sopt.dosopttemplate.data.model.response.FollowerResponse
-import org.sopt.dosopttemplate.databinding.FragmentFollowerListBinding
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import kotlinx.coroutines.flow.onEach
+import org.sopt.dosopttemplate.R
+import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
+import org.sopt.dosopttemplate.databinding.FragmentFollowerBinding
 import org.sopt.dosopttemplate.di.ServicePool
+import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.shortToast
 import retrofit2.Call
 import retrofit2.Response
 
 class FollowerFragment : Fragment() {
-    private var _binding: FragmentFollowerListBinding? = null
-    private val binding : FragmentFollowerListBinding get() = requireNotNull(_binding)
-
+    private var _binding: FragmentFollowerBinding? = null
+    private val binding: FragmentFollowerBinding get() = requireNotNull(_binding)
     private lateinit var followerAdapter: FollowerAdapter
+    private val followerViewModel by activityViewModels<FollowerViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFollowerListBinding.inflate(inflater, container, false)
+        _binding = FragmentFollowerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -31,27 +37,31 @@ class FollowerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
-        setRecyclerView()
+        initFollowerList()
+        observeFollowerState()
     }
 
-    private fun setRecyclerView() {
-        ServicePool.followerService.getFollowerList(2)
-            .enqueue(object : retrofit2.Callback<FollowerResponse> {
-                override fun onResponse(
-                    call: Call<FollowerResponse>,
-                    response: Response<FollowerResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val data = response.body()?.data
-
-                        setFollowerList(data ?: return)
-                    }
+    private fun observeFollowerState() {
+        followerViewModel.followerState.flowWithLifecycle(lifecycle).onEach { followerState ->
+            when (followerState) {
+                is UiState.Success -> {
+                    val followerData = followerState.data
+                    setFollowerList(followerData.data)
                 }
 
-                override fun onFailure(call: Call<FollowerResponse>, t: Throwable) {
-                    requireContext().shortToast("서버 에러 발생")
+                is UiState.Failure -> {
+                    shortToast("팔로워 통신 실패: ${followerState.msg}")
                 }
-            })
+
+                is UiState.Loading -> {
+                    shortToast(getString(R.string.ui_state_loading))
+                }
+            }
+        }
+    }
+
+    private fun initFollowerList() {
+        followerViewModel.getFollowerListFromServer(2)
     }
 
     private fun initAdapter() {
@@ -59,7 +69,7 @@ class FollowerFragment : Fragment() {
         binding.recyclerView.adapter = followerAdapter
     }
 
-    private fun setFollowerList(followerData: List<FollowerResponse.FollowerData>) {
+    private fun setFollowerList(followerData: List<FollowerResponseDto.FollowerData>) {
         followerAdapter.setFollowerList(followerData)
     }
 
