@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.presentation.main.followerlist
+package org.sopt.dosopttemplate.presentation.main.follower
 
 import org.sopt.dosopttemplate.data.model.response.FollowerResponse
 
@@ -10,8 +10,8 @@ import coil.load
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ItemFollowerBinding
 
-class FollowerListAdapter(context: Context) :
-    RecyclerView.Adapter<FollowerListAdapter.FollowerViewHolder>() {
+class FollowerAdapter(context: Context) :
+    RecyclerView.Adapter<FollowerAdapter.FollowerViewHolder>() {
     private val inflater by lazy { LayoutInflater.from(context) }
     private var followerList = mutableListOf<FollowerResponse.FollowerData>()
 

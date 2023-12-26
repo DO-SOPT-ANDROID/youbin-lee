@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.presentation.main.followerlist
+package org.sopt.dosopttemplate.presentation.main.follower
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,11 +12,11 @@ import org.sopt.dosopttemplate.util.shortToast
 import retrofit2.Call
 import retrofit2.Response
 
-class FollowerListFragment : Fragment() {
+class FollowerFragment : Fragment() {
     private var _binding: FragmentFollowerListBinding? = null
     private val binding : FragmentFollowerListBinding get() = requireNotNull(_binding)
 
-    private lateinit var followerAdapter: FollowerListAdapter
+    private lateinit var followerAdapter: FollowerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +55,7 @@ class FollowerListFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        followerAdapter = FollowerListAdapter(requireContext())
+        followerAdapter = FollowerAdapter(requireContext())
         binding.recyclerView.adapter = followerAdapter
     }
 
