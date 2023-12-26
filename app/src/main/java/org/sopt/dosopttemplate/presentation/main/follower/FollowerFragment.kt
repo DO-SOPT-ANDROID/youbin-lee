@@ -13,6 +13,7 @@ import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import org.sopt.dosopttemplate.databinding.FragmentFollowerBinding
 import org.sopt.dosopttemplate.di.ServicePool
+import org.sopt.dosopttemplate.presentation.ViewModelFactory
 import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.shortToast
 import retrofit2.Call
@@ -22,8 +23,7 @@ class FollowerFragment : Fragment() {
     private var _binding: FragmentFollowerBinding? = null
     private val binding: FragmentFollowerBinding get() = requireNotNull(_binding)
     private lateinit var followerAdapter: FollowerAdapter
-    private val followerViewModel by activityViewModels<FollowerViewModel>()
-
+    val followerViewModel: FollowerViewModel by viewModels { ViewModelFactory() }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
