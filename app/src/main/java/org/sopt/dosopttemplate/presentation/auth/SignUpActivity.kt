@@ -47,7 +47,7 @@ class SignUpActivity : AppCompatActivity() {
             signUpViewModel.signUpState.flowWithLifecycle(lifecycle).onEach { signUpState ->
                 when (signUpState) {
                     is UiState.Success -> {
-                        shortToast("회원가입 성공")
+                        shortToast(getString(R.string.ui_state_signup_success))
                         goToLoginActivity()
                     }
 
