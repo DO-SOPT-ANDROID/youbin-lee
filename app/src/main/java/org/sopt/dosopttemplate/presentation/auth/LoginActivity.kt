@@ -43,9 +43,32 @@ class LoginActivity : AppCompatActivity() {
         observeLoginSuccess()
     }
 
+    private fun initSignUpActivityLauncher() {
+        resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                user = result.data?.getParcelable("User", User::class.java)!!
+            }
+        }
+    }
+
+    private fun initLoginBtnListener() {
+        binding.btnLoginLogin.setOnClickListener {
+            loginViewModel.checkLoginAvailable()
+        }
+    }
+
+    private fun initSignUpBtnListener() {
+        binding.btnLoginSignup.setOnClickListener {
+            val intentSignUpAcitivty = Intent(this, SignUpActivity::class.java)
+            resultLauncher.launch(intentSignUpAcitivty)
+        }
+    }
+
     private fun observeLoginSuccess() {
         lifecycleScope.launch {
-            loginViewModel.loginState.flowWithLifecycle(lifecycle).onEach{ loginState ->
+            loginViewModel.loginState.flowWithLifecycle(lifecycle).onEach { loginState ->
                 when (loginState) {
                     is UiState.Success -> {
                         val userId = loginState.data.id
@@ -69,29 +92,6 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
         intent.putExtra("User", user)
         startActivity(intent)
-    }
-
-    private fun initLoginBtnListener() {
-        binding.btnLoginLogin.setOnClickListener {
-            loginViewModel.checkLoginAvailable()
-        }
-    }
-
-    private fun initSignUpActivityLauncher() {
-        resultLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                user = result.data?.getParcelable("User", User::class.java)!!
-            }
-        }
-    }
-
-    private fun initSignUpBtnListener() {
-        binding.btnLoginSignup.setOnClickListener {
-            val intentSignUpAcitivty = Intent(this, SignUpActivity::class.java)
-            resultLauncher.launch(intentSignUpAcitivty)
-        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
@@ -18,6 +19,7 @@ import org.sopt.dosopttemplate.presentation.ViewModelFactory
 import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.shortToast
 
+@AndroidEntryPoint
 class FollowerFragment : Fragment() {
     private var _binding: FragmentFollowerBinding? = null
     private val binding: FragmentFollowerBinding get() = requireNotNull(_binding)
@@ -41,6 +43,15 @@ class FollowerFragment : Fragment() {
 
     }
 
+    private fun initAdapter() {
+        followerAdapter = FollowerAdapter(requireContext())
+        binding.recyclerView.adapter = followerAdapter
+    }
+
+    private fun initFollowerList() {
+        followerViewModel.getFollowerListFromServer(2)
+    }
+
     private fun observeFollowerState() {
         followerViewModel.followerState.flowWithLifecycle(lifecycle).onEach { followerState ->
             when (followerState) {
@@ -58,15 +69,6 @@ class FollowerFragment : Fragment() {
                 }
             }
         }.launchIn(lifecycleScope)
-    }
-
-    private fun initFollowerList() {
-        followerViewModel.getFollowerListFromServer(2)
-    }
-
-    private fun initAdapter() {
-        followerAdapter = FollowerAdapter(requireContext())
-        binding.recyclerView.adapter = followerAdapter
     }
 
     private fun setFollowerList(followerData: List<FollowerResponseDto.FollowerData>) {

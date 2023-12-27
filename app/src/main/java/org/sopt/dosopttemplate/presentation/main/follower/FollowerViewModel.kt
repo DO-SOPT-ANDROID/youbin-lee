@@ -3,6 +3,7 @@ package org.sopt.dosopttemplate.presentation.main.follower
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,6 +12,7 @@ import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import org.sopt.dosopttemplate.data.repository.FollowerRepository
 import org.sopt.dosopttemplate.util.UiState
 
+@HiltViewModel
 class FollowerViewModel(val repository: FollowerRepository) : ViewModel() {
 
     private val _followerState =

@@ -47,15 +47,17 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun observeSignUpSuccess() {
         lifecycleScope.launch {
-            signUpViewModel.signUpState.flowWithLifecycle(lifecycle).onEach {signUpState ->
-                when(signUpState){
+            signUpViewModel.signUpState.flowWithLifecycle(lifecycle).onEach { signUpState ->
+                when (signUpState) {
                     is UiState.Success -> {
                         shortToast("회원가입 성공")
                         goToLoginActivity()
                     }
+
                     is UiState.Failure -> {
                         shortToast("회원가입 실패: ${signUpState.msg}")
                     }
+
                     is UiState.Loading -> {
                         shortToast(getString(R.string.ui_state_loading))
                     }
@@ -85,7 +87,7 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun goToLoginActivity(){
+    private fun goToLoginActivity() {
         intent.putExtra("User", user)
         setResult(RESULT_OK, intent)
         finish()
