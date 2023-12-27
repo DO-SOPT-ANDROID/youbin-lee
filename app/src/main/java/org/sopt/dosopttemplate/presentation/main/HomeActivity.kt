@@ -3,6 +3,7 @@ package org.sopt.dosopttemplate.presentation.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import doubleBackPressed
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.domain.entity.User
@@ -12,7 +13,7 @@ import org.sopt.dosopttemplate.presentation.main.follower.FollowerFragment
 import org.sopt.dosopttemplate.presentation.main.home.HomeFragment
 import org.sopt.dosopttemplate.presentation.main.mypage.MyPageFragment
 import org.sopt.dosopttemplate.util.getParcelable
-
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
     private lateinit var user: User

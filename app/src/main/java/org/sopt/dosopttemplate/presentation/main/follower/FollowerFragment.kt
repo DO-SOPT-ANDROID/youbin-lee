@@ -24,7 +24,7 @@ class FollowerFragment : Fragment() {
     private var _binding: FragmentFollowerBinding? = null
     private val binding: FragmentFollowerBinding get() = requireNotNull(_binding)
     private lateinit var followerAdapter: FollowerAdapter
-    val followerViewModel: FollowerViewModel by viewModels { ViewModelFactory() }
+    val followerViewModel: FollowerViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

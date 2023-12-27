@@ -20,7 +20,6 @@ class FollowerViewModel @Inject constructor(val repository: FollowerRepository) 
 
     fun getFollowerListFromServer(page: Int) {
         viewModelScope.launch {
-            // domain layer에 있는 레포지토리로 일 시킴
             repository.getFollowerList(
                 page
             )
