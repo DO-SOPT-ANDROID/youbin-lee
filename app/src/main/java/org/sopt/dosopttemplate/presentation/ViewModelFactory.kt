@@ -2,7 +2,7 @@ package org.sopt.dosopttemplate.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import org.sopt.dosopttemplate.data.repository.FollowerRepository
+import org.sopt.dosopttemplate.data.repository.FollowerRepositoryImpl
 import org.sopt.dosopttemplate.data.repository.LoginRepository
 import org.sopt.dosopttemplate.di.ServicePool
 import org.sopt.dosopttemplate.presentation.auth.LoginViewModel
@@ -16,10 +16,10 @@ class ViewModelFactory : ViewModelProvider.Factory {
                 val repository = LoginRepository(ServicePool.authService)
                 LoginViewModel(repository) as T
             }
-            modelClass.isAssignableFrom(FollowerViewModel::class.java) -> {
-                val repository = FollowerRepository(ServicePool.followerService)
-                FollowerViewModel(repository) as T
-            }
+//            modelClass.isAssignableFrom(FollowerViewModel::class.java) -> {
+//                val repository = FollowerRepositoryImpl(ServicePool.followerService)
+//                FollowerViewModel(repository) as T
+//            }
             else -> throw IllegalArgumentException("Failed to create ViewModel: ${modelClass.name}")
         }
     }

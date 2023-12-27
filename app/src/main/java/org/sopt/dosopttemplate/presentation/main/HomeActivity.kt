@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import doubleBackPressed
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.User
+import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.databinding.ActivityHomeBinding
 import org.sopt.dosopttemplate.presentation.main.doandroid.DoAndroidFragment
 import org.sopt.dosopttemplate.presentation.main.follower.FollowerFragment

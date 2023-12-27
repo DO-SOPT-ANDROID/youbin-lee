@@ -1,19 +1,18 @@
 package org.sopt.dosopttemplate.presentation.main.follower
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
-import org.sopt.dosopttemplate.data.repository.FollowerRepository
+import org.sopt.dosopttemplate.domain.repository.FollowerRepository
 import org.sopt.dosopttemplate.util.UiState
+import javax.inject.Inject
 
 @HiltViewModel
-class FollowerViewModel(val repository: FollowerRepository) : ViewModel() {
+class FollowerViewModel @Inject constructor(val repository: FollowerRepository) : ViewModel() {
 
     private val _followerState =
         MutableStateFlow<UiState<List<FollowerResponseDto.FollowerData>>>(UiState.Loading)
@@ -21,11 +20,21 @@ class FollowerViewModel(val repository: FollowerRepository) : ViewModel() {
 
     fun getFollowerListFromServer(page: Int) {
         viewModelScope.launch {
+            // domain layer에 있는 레포지토리로 일 시킴
             repository.getFollowerList(
                 page
             )
-                .onSuccess {
-                    _followerState.value = UiState.Success(it.data)
+                .onSuccess { followerEntityList ->
+                    val followerDataList = followerEntityList.map { entity ->
+                        FollowerResponseDto.FollowerData(
+                            id = entity.id!!,
+                            avatar = entity.avatar!!,
+                            email = entity.email!!,
+                            first_name = entity.first_name!!,
+                            last_name = entity.last_name!!
+                        )
+                    }
+                    _followerState.value = UiState.Success(followerDataList)
                 }
                 .onFailure {
                     _followerState.value = UiState.Failure(it.message.toString())

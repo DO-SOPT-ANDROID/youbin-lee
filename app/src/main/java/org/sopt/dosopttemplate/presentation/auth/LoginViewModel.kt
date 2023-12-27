@@ -1,6 +1,5 @@
 package org.sopt.dosopttemplate.presentation.auth
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,9 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.sopt.dosopttemplate.data.User
+import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.data.model.request.LoginRequestDto
-import org.sopt.dosopttemplate.data.model.response.LoginResponseDto
 import org.sopt.dosopttemplate.data.repository.LoginRepository
 import org.sopt.dosopttemplate.util.UiState
 

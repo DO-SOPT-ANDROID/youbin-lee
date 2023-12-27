@@ -1,6 +1,5 @@
 package org.sopt.dosopttemplate.presentation.main.mypage
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.datepicker.MaterialDatePicker
-import org.sopt.dosopttemplate.data.User
+import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.databinding.FragmentMyPageBinding
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 
