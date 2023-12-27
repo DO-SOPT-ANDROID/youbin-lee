@@ -38,6 +38,7 @@ class FollowerFragment : Fragment() {
         initAdapter()
         initFollowerList()
         observeFollowerState()
+
     }
 
     private fun observeFollowerState() {
