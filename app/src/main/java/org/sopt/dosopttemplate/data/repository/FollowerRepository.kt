@@ -1,5 +1,6 @@
 package org.sopt.dosopttemplate.data.repository
 
+import android.util.Log
 import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import org.sopt.dosopttemplate.data.service.FollowerService
 

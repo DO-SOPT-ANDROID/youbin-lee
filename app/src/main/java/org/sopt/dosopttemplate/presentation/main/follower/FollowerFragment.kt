@@ -1,23 +1,22 @@
 package org.sopt.dosopttemplate.presentation.main.follower
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import org.sopt.dosopttemplate.databinding.FragmentFollowerBinding
-import org.sopt.dosopttemplate.di.ServicePool
 import org.sopt.dosopttemplate.presentation.ViewModelFactory
 import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.shortToast
-import retrofit2.Call
-import retrofit2.Response
 
 class FollowerFragment : Fragment() {
     private var _binding: FragmentFollowerBinding? = null
@@ -46,7 +45,7 @@ class FollowerFragment : Fragment() {
             when (followerState) {
                 is UiState.Success -> {
                     val followerData = followerState.data
-                    setFollowerList(followerData.data)
+                    setFollowerList(followerData)
                 }
 
                 is UiState.Failure -> {
@@ -57,7 +56,7 @@ class FollowerFragment : Fragment() {
                     shortToast(getString(R.string.ui_state_loading))
                 }
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun initFollowerList() {
