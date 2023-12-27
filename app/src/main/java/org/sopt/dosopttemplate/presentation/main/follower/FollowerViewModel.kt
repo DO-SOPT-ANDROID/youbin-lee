@@ -26,11 +26,11 @@ class FollowerViewModel @Inject constructor(val repository: FollowerRepository) 
                 .onSuccess { followerEntityList ->
                     val followerDataList = followerEntityList.map { entity ->
                         FollowerResponseDto.FollowerData(
-                            id = entity.id!!,
-                            avatar = entity.avatar!!,
-                            email = entity.email!!,
-                            first_name = entity.first_name!!,
-                            last_name = entity.last_name!!
+                            id = entity.id ?: 0,
+                            avatar = entity.avatar ?: "",
+                            email = entity.email ?: "",
+                            first_name = entity.first_name ?: "",
+                            last_name = entity.last_name ?: ""
                         )
                     }
                     _followerState.value = UiState.Success(followerDataList)

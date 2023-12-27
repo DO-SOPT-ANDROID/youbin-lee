@@ -15,7 +15,7 @@ import org.sopt.dosopttemplate.util.UiState
 class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
 
     private val _loginState = MutableStateFlow<UiState<User>>(UiState.Loading)
-    val loginState : StateFlow<UiState<User>> get() = _loginState.asStateFlow()
+    val loginState: StateFlow<UiState<User>> get() = _loginState.asStateFlow()
 
     val id = MutableLiveData<String>()
     val pw = MutableLiveData<String>()
@@ -28,7 +28,14 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
                 )
             )
                 .onSuccess {
-                    _loginState.value = UiState.Success(User(it.id.toString(), password = "", it.nickname, mbti = ""))
+                    _loginState.value = UiState.Success(
+                        User(
+                            it.id.toString(),
+                            password = "",
+                            it.nickname,
+                            mbti = ""
+                        )
+                    )
                 }.onFailure {
                     _loginState.value = UiState.Failure(it.message.toString())
                 }

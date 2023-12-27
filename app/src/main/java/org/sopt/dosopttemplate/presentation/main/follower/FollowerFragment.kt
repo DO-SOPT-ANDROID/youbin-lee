@@ -1,7 +1,6 @@
 package org.sopt.dosopttemplate.presentation.main.follower
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import org.sopt.dosopttemplate.databinding.FragmentFollowerBinding
-import org.sopt.dosopttemplate.presentation.ViewModelFactory
 import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.shortToast
 
