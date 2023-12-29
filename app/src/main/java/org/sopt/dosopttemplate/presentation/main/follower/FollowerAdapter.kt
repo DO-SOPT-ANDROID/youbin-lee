@@ -1,6 +1,4 @@
-package org.sopt.dosopttemplate.presentation.main.followerlist
-
-import org.sopt.dosopttemplate.data.model.response.FollowerResponse
+package org.sopt.dosopttemplate.presentation.main.follower
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,16 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ItemFollowerBinding
+import org.sopt.dosopttemplate.domain.entity.FollowerEntity
 
-class FollowerListAdapter(context: Context) :
-    RecyclerView.Adapter<FollowerListAdapter.FollowerViewHolder>() {
+class FollowerAdapter(context: Context) :
+    RecyclerView.Adapter<FollowerAdapter.FollowerViewHolder>() {
     private val inflater by lazy { LayoutInflater.from(context) }
-    private var followerList = mutableListOf<FollowerResponse.FollowerData>()
+    private var followerList = mutableListOf<FollowerEntity>()
 
     inner class FollowerViewHolder(private val binding: ItemFollowerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(followerData: FollowerResponse.FollowerData) {
+        fun onBind(followerData: FollowerEntity) {
             binding.run {
                 tvFollowerName.text = followerData.first_name
                 tvFollowerEmail.text = followerData.email
@@ -40,7 +39,7 @@ class FollowerListAdapter(context: Context) :
         holder.onBind(followerList[position])
     }
 
-    fun setFollowerList(followerData: List<FollowerResponse.FollowerData>) {
+    fun setFollowerList(followerData: List<FollowerEntity>) {
         followerList.clear()
         followerList.addAll(followerData)
         notifyDataSetChanged()

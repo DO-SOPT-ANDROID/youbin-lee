@@ -4,4 +4,9 @@
     <string name="sign_up_id_error">영문, 숫자가 포함되어야 하며 6~10글자 이내로 입력해주세요.</string>
     <string name="sign_up_pw_error">영문, 숫자, 특수문자가 포함되어야 하며 6~12글자 이내로 입력해주세요.</string>
     <string name="ui_state_loading">로딩 중..</string>
+    <string name="ui_state_login_success">로그인이 성공하였고 유저의 ID는 %s 입니둥</string>
+    <string name="ui_state_login_failure">로그인 실패: %s</string>
+    <string name="ui_state_signup_success">회원가입 성공</string>
+    <string name="ui_state_signup_failure">회원가입 실패: %s</string>
+    <string name="ui_state_follower_failure">팔로워 통신 실패: %s</string>
 </resources>

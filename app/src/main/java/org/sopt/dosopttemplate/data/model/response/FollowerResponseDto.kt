@@ -1,8 +1,11 @@
 package org.sopt.dosopttemplate.data.model.response
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.sopt.dosopttemplate.domain.entity.FollowerEntity
+
 @Serializable
-data class FollowerResponse(
+data class FollowerResponseDto(
     @SerialName("page")
     val page: Int,
     @SerialName("per_page")
@@ -37,4 +40,15 @@ data class FollowerResponse(
         @SerialName("url")
         val url: String
     )
+
+    fun toFollowerEntity(): List<FollowerEntity> = data.map {
+        FollowerEntity(
+            id = it.id,
+            avatar = it.avatar,
+            email = it.email,
+            first_name = it.first_name,
+            last_name = it.last_name
+        )
+    }
 }
+
