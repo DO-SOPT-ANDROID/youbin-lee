@@ -12,7 +12,7 @@ import org.sopt.dosopttemplate.presentation.main.home.adapter.FriendAdapter
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
-    private val binding : FragmentHomeBinding get() = requireNotNull(_binding)
+    private val binding: FragmentHomeBinding get() = requireNotNull(_binding)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -20,14 +20,21 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     private val mockFriendData by viewModels<MockFriendData>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val friendAdapter = FriendAdapter(requireContext())
 
+        initAdapter()
+
+    }
+
+    private fun initAdapter() {
+        val friendAdapter = FriendAdapter(requireContext())
         binding.rvFriends.adapter = friendAdapter
         friendAdapter.setFriendList(mockFriendData.mockFriend)
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
