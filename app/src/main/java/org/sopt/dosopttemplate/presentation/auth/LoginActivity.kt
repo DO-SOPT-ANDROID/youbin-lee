@@ -20,12 +20,13 @@ import org.sopt.dosopttemplate.presentation.main.HomeActivity
 import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.getParcelable
 import org.sopt.dosopttemplate.util.hideKeyboard
+import org.sopt.dosopttemplate.util.setOnSingleClickListener
 import org.sopt.dosopttemplate.util.shortToast
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
-    private lateinit var user: User
+    private var user: User? = null
 
     private val loginViewModel: LoginViewModel by viewModels { ViewModelFactory() }
 
@@ -47,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                user = result.data?.getParcelable("User", User::class.java)!!
+                user = result.data?.getParcelable("User", User::class.java)
             }
         }
     }
@@ -59,9 +60,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initSignUpBtnListener() {
-        binding.btnLoginSignup.setOnClickListener {
-            val intentSignUpAcitivty = Intent(this, SignUpActivity::class.java)
-            resultLauncher.launch(intentSignUpAcitivty)
+        binding.btnLoginSignup.setOnSingleClickListener {
+            val intentSignUpActivity = Intent(this, SignUpActivity::class.java)
+            resultLauncher.launch(intentSignUpActivity)
         }
     }
 
@@ -71,12 +72,12 @@ class LoginActivity : AppCompatActivity() {
                 when (loginState) {
                     is UiState.Success -> {
                         val userId = loginState.data.id
-                        shortToast("로그인이 성공하였고 유저의 ID는 $userId 입니둥")
+                        shortToast(getString(R.string.ui_state_login_success, userId))
                         goToHomeActivity()
                     }
 
                     is UiState.Failure -> {
-                        shortToast("로그인 실패: ${loginState.msg}")
+                        shortToast(getString(R.string.ui_state_login_failure, loginState.msg))
                     }
 
                     is UiState.Loading -> {

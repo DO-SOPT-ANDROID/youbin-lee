@@ -52,7 +52,7 @@ class SignUpActivity : AppCompatActivity() {
                     }
 
                     is UiState.Failure -> {
-                        shortToast("회원가입 실패: ${signUpState.msg}")
+                        shortToast(getString(R.string.ui_state_signup_failure, signUpState.msg))
                     }
 
                     is UiState.Loading -> {

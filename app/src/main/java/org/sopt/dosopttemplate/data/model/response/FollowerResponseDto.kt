@@ -41,7 +41,7 @@ data class FollowerResponseDto(
         val url: String
     )
 
-    fun toFollowerUser(): List<FollowerEntity> = data.map {
+    fun toFollowerEntity(): List<FollowerEntity> = data.map {
         FollowerEntity(
             id = it.id,
             avatar = it.avatar,

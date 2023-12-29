@@ -8,6 +8,6 @@ import retrofit2.http.Query
 interface FollowerService {
     @GET("api/users")
     suspend fun getFollowerListFromServer(
-        @Query("page") page: Int = 2
+        @Query("page") page: Int
     ): FollowerResponseDto
 }

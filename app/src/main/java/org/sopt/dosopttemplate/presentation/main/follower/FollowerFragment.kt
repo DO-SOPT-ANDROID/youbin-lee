@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import org.sopt.dosopttemplate.databinding.FragmentFollowerBinding
+import org.sopt.dosopttemplate.domain.entity.FollowerEntity
 import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.shortToast
 
@@ -22,7 +23,7 @@ class FollowerFragment : Fragment() {
     private var _binding: FragmentFollowerBinding? = null
     private val binding: FragmentFollowerBinding get() = requireNotNull(_binding)
     private lateinit var followerAdapter: FollowerAdapter
-    val followerViewModel: FollowerViewModel by viewModels()
+    private val followerViewModel: FollowerViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -69,7 +70,7 @@ class FollowerFragment : Fragment() {
         }.launchIn(lifecycleScope)
     }
 
-    private fun setFollowerList(followerData: List<FollowerResponseDto.FollowerData>) {
+    private fun setFollowerList(followerData: List<FollowerEntity>) {
         followerAdapter.setFollowerList(followerData)
     }
 

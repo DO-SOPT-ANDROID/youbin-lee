@@ -9,6 +9,6 @@ class FollowerRepositoryImpl @Inject constructor(private val followerDataSource:
     : FollowerRepository{
     override suspend fun getFollowerList(page: Int) : Result<List<FollowerEntity>> =
         runCatching {
-            followerDataSource.getFollower(page).toFollowerUser()
+            followerDataSource.getFollower(page).toFollowerEntity()
         }
 }
