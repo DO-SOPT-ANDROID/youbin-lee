@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initLoginBtnListener() {
-        binding.btnLoginLogin.setOnClickListener {
+        binding.btnLoginLogin.setOnSingleClickListener {
             loginViewModel.checkLoginAvailable()
         }
     }
