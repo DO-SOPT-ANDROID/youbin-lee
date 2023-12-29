@@ -8,4 +8,5 @@
     <string name="ui_state_login_failure">로그인 실패: %s</string>
     <string name="ui_state_signup_success">회원가입 성공</string>
     <string name="ui_state_signup_failure">회원가입 실패: %s</string>
+    <string name="ui_state_follower_failure">팔로워 통신 실패: %s</string>
 </resources>

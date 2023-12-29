@@ -60,7 +60,7 @@ class FollowerFragment : Fragment() {
                 }
 
                 is UiState.Failure -> {
-                    shortToast("팔로워 통신 실패: ${followerState.msg}")
+                    shortToast(getString(R.string.ui_state_follower_failure, followerState.msg))
                 }
 
                 is UiState.Loading -> {
