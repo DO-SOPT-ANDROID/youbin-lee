@@ -13,11 +13,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
 
-//    @Provides
-//    @Singleton
-//    fun provideAuthService(@Auth retrofit: Retrofit): AuthService =
-//        retrofit.create(AuthService::class.java)
-
     @Provides
     @Singleton
     fun provideFollowerService(@OPEN retrofit: Retrofit): FollowerService =

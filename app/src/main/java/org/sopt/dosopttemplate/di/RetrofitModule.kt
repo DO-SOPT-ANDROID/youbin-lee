@@ -49,18 +49,6 @@ object RetrofitModule {
         .addInterceptor(loggingInterceptor)
         .build()
 
-//    @Provides
-//    @Singleton
-//    @AUTH
-//    fun provideRetrofit(
-//        client: OkHttpClient,
-//        factory: Converter.Factory
-//    ): Retrofit = Retrofit.Builder()
-//        .baseUrl(AUTH_BASE_URL)
-//        .client(client)
-//        .addConverterFactory(factory)
-//        .build()
-
     @Provides
     @Singleton
     @OPEN
