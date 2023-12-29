@@ -61,8 +61,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initSignUpBtnListener() {
         binding.btnLoginSignup.setOnSingleClickListener {
-            val intentSignUpActivity = Intent(this, SignUpActivity::class.java)
-            resultLauncher.launch(intentSignUpActivity)
+            resultLauncher.launch(Intent(this, SignUpActivity::class.java))
         }
     }
 
